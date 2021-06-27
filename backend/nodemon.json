@@ -1,0 +1,7 @@
+{
+    "ext": "ts,json,ejs",
+    "ignore": [
+        "src/**/*.spec.ts"
+    ],
+    "exec": "ts-node server.ts"
+}
