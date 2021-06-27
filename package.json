@@ -1,7 +1,8 @@
 {
   "name": "ecommerce",
   "version": "1.0.0",
-  "description": "Backend for ecommerce portfolio piece",
+  "description": "eCommerce portfolio piece",
+  "repository": "https://github.com/robertjawoods/ecommerce-example",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
