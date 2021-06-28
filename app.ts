@@ -1,5 +1,5 @@
 import * as express from "express";
-import { convertTypeAcquisitionFromJson } from "typescript";
+import { connect } from "mongoose";
 
 class App {
     public app: express.Application;
@@ -11,6 +11,8 @@ class App {
 
         this.initialiseMiddleware();
         this.initialiseControllers(controllers);
+
+        this.connectToMongo();
     }
 
     private initialiseMiddleware() {
@@ -30,6 +32,15 @@ class App {
     public listen() {
         this.app.listen(this.port, () => {
             console.log(`Listening on http://localhost:${this.port}`);
+        });
+    }
+
+    private async connectToMongo() { 
+        await connect("mongodb://127.0.0.1:27017/", { 
+            useUnifiedTopology: true, 
+            useNewUrlParser: true
+        },(err) => {
+            console.log(err);
         });
     }
 }

@@ -1,13 +1,12 @@
-import { Product } from "../models/product";
+import { Model, model } from "mongoose";
+import { Product, ProductModel } from "../models/product";
 
 class ProductService {
-    getProduct(id: number): Product {
-        var product = new Product();
+    getProduct(id: number) {
+        var product = new ProductModel();
 
         product.id = id;
         product.name = "test";
-
-        return product;
     }
 
     getProducts(): Product[] {
