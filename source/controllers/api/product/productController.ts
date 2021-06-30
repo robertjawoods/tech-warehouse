@@ -2,7 +2,6 @@ import * as express from "express";
 import Controller from "../../controller";
 import { autoInjectable } from "tsyringe";
 import ProductService from "../../../services/productService";
-import { Product } from "../../../models/product";
 
 @autoInjectable()
 class ProductController extends Controller {
@@ -22,9 +21,7 @@ class ProductController extends Controller {
     }
 
     getProduct = (request: express.Request, response: express.Response) => {
-        var product: Product = this.productService.getProduct(1);
 
-        response.send(product);
     }
 }
 

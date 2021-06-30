@@ -1,0 +1,26 @@
+<html>
+<%- include('../partials/head') %>
+    <%- include('../partials/navbar') %>
+
+        <h1 class="test">
+            <%= product.name %>
+        </h1>
+
+        <h2>
+            <%= product.description %>
+        </h2>
+
+        <h2>Sizes</h2>
+        <ul>
+            <% for(var i=0; i<product.sizes.length; i++) {%>
+                <li>
+                    <%= product.sizes[i] %>
+                </li>
+                <% } %>
+        </ul>
+
+        <p>
+            <%= product.formattedPrice %>
+        </p>
+
+</html>

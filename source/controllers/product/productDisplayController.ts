@@ -2,7 +2,7 @@ import * as express from "express";
 import Controller from "../controller";
 import { autoInjectable } from "tsyringe";
 import ProductService from "../../services/productService";
-import { Product } from "../../models/product";
+import { IProduct } from "../../models/interfaces/IProduct";
 
 @autoInjectable()
 class ProductDisplayController extends Controller {
@@ -21,12 +21,12 @@ class ProductDisplayController extends Controller {
         this.router.get(`${this.path}/:id(\\d+)/`, this.index);
     }
 
-    index = (request: express.Request, response: express.Response) => {
-        var productID = parseInt(request.params.id);
+    index = async (request: express.Request, response: express.Response) => {
+        var productID = request.params.id;
 
-        var product: Product = this.productService.getProduct(productID);
+        var product: IProduct = await this.productService.getProduct(productID);
 
-        response.render("product/index", product);
+        response.render("product/index", { product });
     }
 }
 
