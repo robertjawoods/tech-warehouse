@@ -5,7 +5,7 @@
   "repository": "https://github.com/robertjawoods/ecommerce-example",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "xo",
     "start": "ts-node server.ts",
     "import": "ts-node ./source/commands/importProducts.ts"
   },
@@ -30,6 +30,7 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "tslint": "^6.1.3"
+    "tslint": "^6.1.3",
+    "xo": "^0.40.3"
   }
 }

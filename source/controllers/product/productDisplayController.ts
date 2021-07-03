@@ -1,10 +1,8 @@
 import * as express from "express";
 import Controller from "../../core/controller";
-//import { autoInjectable } from "tsyringe";
 import ProductService from "../../services/productService";
 import { IProduct } from "../../models/interfaces/IProduct";
 
-//@autoInjectable()
 class ProductDisplayController extends Controller {
     private productService: ProductService;
 
