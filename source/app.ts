@@ -1,45 +1,48 @@
 import * as express from "express";
 import { connect } from "mongoose";
-// import { container, injectable } from "tsyringe";
-import Controller from "./controllers/controller";
-import { registerDependencies } from "./core/IoC/registerDependencies";
+import { delay, inject } from "tsyringe";
+import Controller from "./core/controller";
+import { ControllerLoader } from "./core/controllerLoader";
 import { ProductModel } from "./models/product";
+import * as path from "path";
 
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
-
 class App {
-    public app: express.Application;
-    public port: number;
+    private app: express.Application;
+    private port: number;
+    private controllerLoader: ControllerLoader;
 
-    constructor(port: number) {
+    constructor(port: number, @inject(delay(() => ControllerLoader)) controllerLoader?: ControllerLoader) {
         this.app = express();
         this.port = port;
-    }
 
-    public init() {
-        registerDependencies();
+        this.controllerLoader = controllerLoader;
 
         this.initialiseMiddleware();
 
-        // var controllers: Controller[] = container.resolveAll(Controller);
-        // console.log(controllers);
-
-        // this.initialiseControllers(controllers);
+        this.initialiseControllers();
 
         this.connectToMongo();
+
+        this.app.set("views", path.join(__dirname, "views"));
     }
+
 
     private initialiseMiddleware() {
         this.app.use(express.json());
         this.app.use("/public", express.static("public"));
         this.app.set("view engine", "ejs");
+
+        this.app.disable("x-powered-by");
     }
 
-    private initialiseControllers(controllers) {
-        controllers.forEach(controller => {
-            this.app.use("/", controller.router);
+    private initialiseControllers() {
+        this.controllerLoader.sadBoiImport().then((controllers) => {
+            for (let controller of controllers) {
+                this.app.use("/", controller.router);
+            }
         });
     }
 
@@ -57,12 +60,6 @@ class App {
             if (err)
                 console.log(err);
         });
-
-        //this.addTestProduct();
-    }
-
-    private async addTestProduct() {
-        await ProductModel.deleteMany({});
     }
 }
 

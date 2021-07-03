@@ -1,16 +1,17 @@
 
-import { autoInjectable } from "tsyringe";
+import { autoInjectable, delay, inject } from "tsyringe";
 import { IProduct } from "../models/interfaces/IProduct";
 import { Perspective, ProductImageType } from "../models/interfaces/IProductImage";
 import { ProductRepository } from "../repositories/productRepository";
 import { IProductImageService } from "./interfaces/IProductImageService";
+import { FileSystemProductImageService } from "./productImageService";
 
 @autoInjectable()
 class ProductService {
     productRepository: ProductRepository;
     productImageService: IProductImageService;
 
-    constructor(productRepository?: ProductRepository, productImageService?: IProductImageService) {
+    constructor(@inject(delay(() => ProductRepository)) productRepository?: ProductRepository, @inject(delay(() => FileSystemProductImageService)) productImageService?: IProductImageService) {
         this.productRepository = productRepository;
         this.productImageService = productImageService;
     }

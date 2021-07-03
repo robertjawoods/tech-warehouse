@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-import { autoInjectable } from "tsyringe";
+import { autoInjectable, delay, inject } from "tsyringe";
 import { IProduct } from "../models/interfaces/IProduct";
 import { ProductModel } from "../models/product";
 import { LogService } from "../services/logService";
@@ -8,7 +8,7 @@ import { LogService } from "../services/logService";
 export class ProductRepository {
     private logger: LogService;
 
-    constructor(logger?: LogService) {
+    constructor(@inject(delay(() => LogService)) logger?: LogService) {
         this.logger = logger;
     }
 

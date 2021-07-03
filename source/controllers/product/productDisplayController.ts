@@ -1,16 +1,15 @@
 import * as express from "express";
-import Controller from "../controller";
-import { autoInjectable } from "tsyringe";
+import Controller from "../../core/controller";
+//import { autoInjectable } from "tsyringe";
 import ProductService from "../../services/productService";
 import { IProduct } from "../../models/interfaces/IProduct";
 
-@autoInjectable()
+//@autoInjectable()
 class ProductDisplayController extends Controller {
     private productService: ProductService;
 
-    constructor(productService?: ProductService) {
-        super();
-        this.path = "/productdisplay";
+    constructor(path: string, productService?: ProductService) {
+        super(path);
 
         this.initialiseRoutes();
 

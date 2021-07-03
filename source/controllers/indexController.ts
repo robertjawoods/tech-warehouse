@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import Controller from "./controller";
+import Controller from "../core/controller";
 
 export class IndexController extends Controller {
-    constructor() {
-        super();
+    constructor(path: string) {
+        super(path);
 
         this.path = "";
 

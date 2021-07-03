@@ -1,7 +1,8 @@
+import "reflect-metadata";
 import App from "./source/app";
-import '@abraham/reflection';
-import Controller from "./source/controllers/controller";
+import Controller from "./source/core/controller";
 import glob = require("glob");
+import { ControllerLoader } from "./source/core/controllerLoader";
 
 const dynamicImport = async (): Promise<Controller[]> => {
     let results = [];
@@ -19,13 +20,6 @@ const dynamicImport = async (): Promise<Controller[]> => {
     return results;
 }
 
-const start = () => {
-    const app = new App(3000);
+const app = new App(3000, new ControllerLoader());
 
-    app.init();
-
-    app.listen();
-};
-
-
-start();
+app.listen();

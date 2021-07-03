@@ -1,15 +1,14 @@
 import * as express from "express";
-import Controller from "../../controller";
-import { autoInjectable } from "tsyringe";
+import Controller from "../../../core/controller";
+import { autoInjectable, delay, inject, injectable } from "tsyringe";
 import ProductService from "../../../services/productService";
 
 @autoInjectable()
 class ProductController extends Controller {
     private productService: ProductService;
 
-    constructor(productService?: ProductService) {
-        super();
-        this.path = "/api/product";
+    constructor(path: string, @inject(delay(() => ProductService)) productService?: ProductService) {
+        super(path);
 
         this.initialiseRoutes();
 

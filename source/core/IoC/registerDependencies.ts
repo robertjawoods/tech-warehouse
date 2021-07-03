@@ -1,5 +1,5 @@
 import { container, Lifecycle } from "tsyringe"
-import Controller from "../../controllers/controller"
+import Controller from "../controller"
 import { IndexController } from "../../controllers/indexController";
 import "reflect-metadata";
 
