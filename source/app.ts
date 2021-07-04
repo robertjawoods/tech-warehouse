@@ -1,18 +1,19 @@
-import * as express from "express";
-import { connect } from "mongoose";
-import { delay, inject } from "tsyringe";
-import Controller from "./core/controller";
-import { ControllerLoader } from "./core/controllerLoader";
-import { ProductModel } from "./models/product";
-import * as path from "path";
+import * as path from 'path';
+import * as express from 'express';
+import { connect } from 'mongoose';
+import { delay, inject } from 'tsyringe';
+import Controller from './core/controller';
+import { ControllerLoader } from './core/controllerLoader';
+import { ProductModel } from './models/product';
 
-if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
 }
+
 class App {
-    private app: express.Application;
-    private port: number;
-    private controllerLoader: ControllerLoader;
+    private readonly app: express.Application;
+    private readonly port: number;
+    private readonly controllerLoader: ControllerLoader;
 
     constructor(port: number, @inject(delay(() => ControllerLoader)) controllerLoader?: ControllerLoader) {
         this.app = express();
@@ -26,22 +27,21 @@ class App {
 
         this.connectToMongo();
 
-        this.app.set("views", path.join(__dirname, "views"));
+        this.app.set('views', path.join(__dirname, 'views'));
     }
-
 
     private initialiseMiddleware() {
         this.app.use(express.json());
-        this.app.use("/public", express.static("public"));
-        this.app.set("view engine", "ejs");
+        this.app.use('/public', express.static('public'));
+        this.app.set('view engine', 'ejs');
 
-        this.app.disable("x-powered-by");
+        this.app.disable('x-powered-by');
     }
 
     private initialiseControllers() {
-        this.controllerLoader.sadBoiImport().then((controllers) => {
-            for (let controller of controllers) {
-                this.app.use("/", controller.router);
+        this.controllerLoader.sadBoiImport().then(controllers => {
+            for (const controller of controllers) {
+                this.app.use('/', controller.router);
             }
         });
     }
@@ -56,9 +56,10 @@ class App {
         await connect(process.env.MONGO_CONNECTION_STRING, {
             useUnifiedTopology: true,
             useNewUrlParser: true
-        }, (err) => {
-            if (err)
-                console.log(err);
+        }, error => {
+            if (error) {
+                console.log(error);
+            }
         });
     }
 }

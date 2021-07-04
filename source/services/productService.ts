@@ -1,36 +1,36 @@
 
-import { autoInjectable, delay, inject } from "tsyringe";
-import { IProduct } from "../models/interfaces/IProduct";
-import { Perspective, ProductImageType } from "../models/interfaces/IProductImage";
-import { ProductRepository } from "../repositories/productRepository";
-import { IProductImageService } from "./interfaces/IProductImageService";
-import { FileSystemProductImageService } from "./productImageService";
+import {autoInjectable, delay, inject} from 'tsyringe';
+import {IProduct} from '../models/interfaces/IProduct';
+import {Perspective, ProductImageType} from '../models/interfaces/IProductImage';
+import {ProductRepository} from '../repositories/productRepository';
+import {IProductImageService} from './interfaces/IProductImageService';
+import {FileSystemProductImageService} from './productImageService';
 
 @autoInjectable()
 class ProductService {
-    productRepository: ProductRepository;
-    productImageService: IProductImageService;
+	productRepository: ProductRepository;
+	productImageService: IProductImageService;
 
-    constructor(@inject(delay(() => ProductRepository)) productRepository?: ProductRepository, @inject(delay(() => FileSystemProductImageService)) productImageService?: IProductImageService) {
-        this.productRepository = productRepository;
-        this.productImageService = productImageService;
-    }
+	constructor(@inject(delay(() => ProductRepository)) productRepository?: ProductRepository, @inject(delay(() => FileSystemProductImageService)) productImageService?: IProductImageService) {
+		this.productRepository = productRepository;
+		this.productImageService = productImageService;
+	}
 
-    async getProduct(id: string): Promise<IProduct> {
-        var product = await this.productRepository.getProduct(id);
+	async getProduct(id: string): Promise<IProduct> {
+		const product = await this.productRepository.getProduct(id);
 
-        var path = this.productImageService.getProductImage({
-            id: id,
-            imageType: ProductImageType.Hero,
-            perspective: Perspective.Front
-        });
+		const path = this.productImageService.getProductImage({
+			id,
+			imageType: ProductImageType.Hero,
+			perspective: Perspective.Front
+		});
 
-        return product;
-    }
+		return product;
+	}
 
-    getProducts(): IProduct[] {
-        return [];
-    }
+	getProducts(): IProduct[] {
+		return [];
+	}
 }
 
 export default ProductService;
