@@ -1,21 +1,21 @@
 import * as path from 'path';
 import * as express from 'express';
 import { connect } from 'mongoose';
-import { delay, inject } from 'tsyringe';
-import Controller from './core/controller';
+import { autoInjectable, delay, inject, injectable } from 'tsyringe';
+import * as dotenv from 'dotenv';
 import { ControllerLoader } from './core/controllerLoader';
-import { ProductModel } from './models/product';
 
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
+    dotenv.config();
 }
 
+@autoInjectable()
 class App {
     private readonly app: express.Application;
     private readonly port: number;
     private readonly controllerLoader: ControllerLoader;
 
-    constructor(port: number, @inject(delay(() => ControllerLoader)) controllerLoader?: ControllerLoader) {
+    constructor(port: number, controllerLoader?: ControllerLoader) {
         this.app = express();
         this.port = port;
 
@@ -24,8 +24,6 @@ class App {
         this.initialiseMiddleware();
 
         this.initialiseControllers();
-
-        this.connectToMongo();
 
         this.app.set('views', path.join(__dirname, 'views'));
     }
@@ -39,9 +37,9 @@ class App {
     }
 
     private initialiseControllers() {
-        this.controllerLoader.sadBoiImport().then(controllers => {
+        this.controllerLoader.getControllers().then(controllers => {
             for (const controller of controllers) {
-                this.app.use('/', controller.router);
+                this.app.use(controller.basePath, controller.router);
             }
         });
     }

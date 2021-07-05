@@ -1,20 +1,20 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 import Controller from '../core/controller';
 
 export class IndexController extends Controller {
-	constructor(path: string) {
-		super(path);
+    constructor() {
+        super();
 
-		this.path = '';
+        this.basePath = '/';
 
-		this.initialiseRoutes();
-	}
+        this.initialiseRoutes();
+    }
 
-	private initialiseRoutes() {
-		this.router.get(this.path, this.index);
-	}
+    index = (request: Request, response: Response) => {
+        response.render('index');
+    };
 
-	index = (request: Request, response: Response) => {
-		response.render('index');
-	};
+    private initialiseRoutes() {
+        this.router.get('/', this.index);
+    }
 }

@@ -1,17 +1,30 @@
-import * as fs from 'fs';
-import { IProductImageRequest, Perspective, ProductImageType } from '../models/interfaces/IProductImage';
+import 'reflect-metadata';
+import { autoInjectable } from 'tsyringe';
+import { ProductImageRequest, Perspective, ProductImageType } from '../models/interfaces/IProductImage';
 import { IProductImageService } from './interfaces/IProductImageService';
+import { LogService } from './logService';
 
+@autoInjectable()
 export class FileSystemProductImageService implements IProductImageService {
-	public async getProductImage(imageRequest: IProductImageRequest): Promise<string> {
-		const fileName = '';
+	private logger: LogService;
 
-		return '';
+	constructor(logger?: LogService) {
+		this.logger = logger;
 	}
 
-	public async getProductImages(imageRequest: IProductImageRequest): Promise<string> {
-		return new Promise<string>(() => {
-			return '';
-		});
+	public async getProductImage(imageRequest: ProductImageRequest): Promise<string> {
+		let fileName: string = `${imageRequest.id}-${ProductImageType[imageRequest.imageType]}-${Perspective[imageRequest.perspective]}.jpg`;
+
+		return fileName.toLowerCase();
+	}
+
+	public async getProductImages(imageRequest: ProductImageRequest): Promise<string[]> {
+		let results: string[] = new Array<string>();
+
+		this.logger.instance.log('debug', imageRequest);
+
+
+
+		return results.map(result => result + '.jpg');
 	}
 }

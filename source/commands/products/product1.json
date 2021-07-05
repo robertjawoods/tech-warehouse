@@ -1,5 +1,5 @@
 {
-    "_id": 123456,
+    "id": 123456,
     "name": "Test T Shirt",
     "description": "Plain White T Shirt",
     "categories": [

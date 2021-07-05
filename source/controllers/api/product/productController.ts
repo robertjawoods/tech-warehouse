@@ -1,5 +1,5 @@
 import * as express from 'express';
-import {autoInjectable, delay, inject, injectable} from 'tsyringe';
+import { autoInjectable, delay, inject } from 'tsyringe';
 import Controller from '../../../core/controller';
 import ProductService from '../../../services/productService';
 
@@ -7,8 +7,10 @@ import ProductService from '../../../services/productService';
 class ProductController extends Controller {
 	private readonly productService: ProductService;
 
-	constructor(path: string, @inject(delay(() => ProductService)) productService?: ProductService) {
-		super(path);
+	constructor(@inject(delay(() => ProductService)) productService?: ProductService) {
+		super();
+
+		this.basePath = '/api/product';
 
 		this.initialiseRoutes();
 
@@ -19,7 +21,7 @@ class ProductController extends Controller {
 		this.router.get(`${this.path}/getProduct`, this.getProduct);
 	}
 
-	getProduct = (request: express.Request, response: express.Response) => {};
+	getProduct = (request: express.Request, response: express.Response) => { };
 }
 
 export default ProductController;

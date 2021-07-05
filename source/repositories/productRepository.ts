@@ -1,24 +1,27 @@
-import * as mongoose from 'mongoose';
-import {autoInjectable, delay, inject} from 'tsyringe';
-import {IProduct} from '../models/interfaces/IProduct';
-import {ProductModel} from '../models/product';
-import {LogService} from '../services/logService';
+import { autoInjectable, delay, inject } from 'tsyringe';
+import { IProduct } from '../models/interfaces/IProduct';
+import { LogService } from '../services/logService';
+
+import { container } from '../core/IoC/container';
+import { ProductMapper } from '../core/mapping/productMapper';
 
 @autoInjectable()
 export class ProductRepository {
-	private readonly logger: LogService;
+    private readonly logger: LogService;
 
-	constructor(@inject(delay(() => LogService)) logger?: LogService) {
-		this.logger = logger;
-	}
+    private readonly pool: any;
 
-	public async getProduct(productId: string): Promise<IProduct> {
-		const product = await ProductModel.findOne({
-			_id: productId
-		});
+    constructor(@inject(delay(() => LogService)) logger?: LogService) {
+        this.pool = container.resolve("Pool");
 
-		this.logger.instance.log('debug', `Got product: ${product._id}`);
+        this.logger = logger;
+    }
 
-		return product;
-	}
+    public async getProduct(productId: string): Promise<IProduct> {
+        let client = await this.pool.connect();
+
+        let result = await client.query('SELECT * FROM products WHERE id = $1', [productId]);
+
+        return new ProductMapper<IProduct, string>().map(JSON.stringify(result.rows[0]))
+    }
 }

@@ -1,29 +1,34 @@
 
-import {autoInjectable, delay, inject} from 'tsyringe';
-import {IProduct} from '../models/interfaces/IProduct';
-import {Perspective, ProductImageType} from '../models/interfaces/IProductImage';
-import {ProductRepository} from '../repositories/productRepository';
-import {IProductImageService} from './interfaces/IProductImageService';
-import {FileSystemProductImageService} from './productImageService';
+import { autoInjectable, delay, inject, Lifecycle, scoped } from 'tsyringe';
+import { IProduct } from '../models/interfaces/IProduct';
+import { Perspective, ProductImageType } from '../models/interfaces/IProductImage';
+import { ProductRepository } from '../repositories/productRepository';
+import { IProductImageService } from './interfaces/IProductImageService';
+import { FileSystemProductImageService } from './productImageService';
+import { container } from './../core/IoC/container';
 
 @autoInjectable()
 class ProductService {
 	productRepository: ProductRepository;
 	productImageService: IProductImageService;
 
-	constructor(@inject(delay(() => ProductRepository)) productRepository?: ProductRepository, @inject(delay(() => FileSystemProductImageService)) productImageService?: IProductImageService) {
-		this.productRepository = productRepository;
-		this.productImageService = productImageService;
+	constructor() {
+		this.productRepository = container.resolve(ProductRepository);
+		this.productImageService = container.resolve("IProductImageService");
 	}
 
 	async getProduct(id: string): Promise<IProduct> {
-		const product = await this.productRepository.getProduct(id);
+		let product: IProduct = await this.productRepository.getProduct(id);
 
-		const path = this.productImageService.getProductImage({
+		console.log(product);
+
+		product.images = [await this.productImageService.getProductImage({
 			id,
 			imageType: ProductImageType.Hero,
 			perspective: Perspective.Front
-		});
+		})];
+
+		console.log(product);
 
 		return product;
 	}

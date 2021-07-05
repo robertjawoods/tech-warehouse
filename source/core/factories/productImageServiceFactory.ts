@@ -1,8 +1,8 @@
-import {IProductImageService} from '../../services/interfaces/IProductImageService';
-import {FileSystemProductImageService} from '../../services/productImageService';
+import { IProductImageService } from '../../services/interfaces/IProductImageService';
+import { FileSystemProductImageService } from '../../services/productImageService';
 
-export class ProductImageServiceFactory {
-	public static getImageService(): IProductImageService {
+export const ProductImageServiceFactory = {
+	getImageService(): IProductImageService {
 		return new FileSystemProductImageService();
 	}
-}
+};

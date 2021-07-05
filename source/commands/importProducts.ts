@@ -1,67 +1,34 @@
-import * as mongoose from 'mongoose';
-import {ProductModel} from '../models/product';
-import {IProduct} from '../models/interfaces/IProduct';
-const fs = require('fs');
-const filehound = require('filehound');
+import 'reflect-metadata';
+import { registerDependencies, container } from './../core/IoC/container';
+import * as FileHound from 'filehound';
+import * as dotenv from 'dotenv';
+import { IProduct } from '../models/interfaces/IProduct';
+import * as fs from 'fs';
+import { BoundPool, Client } from 'pg';
 
 if (process.env.NODE_ENV !== 'production') {
-	require('dotenv').config();
+	dotenv.config();
 }
 
 const importProducts = async (): Promise<any> => {
-	filehound.create()
-		.paths(process.cwd())
-		.depth(0)
-		.find()
-		.then(files => files.forEach(file => {
-			console.log(file);
-		}));
+	let files = FileHound.create()
+		.paths(__dirname + '/products')
+		.findSync();
 
-	return mongoose.connect(process.env.MONGO_CONNECTION_STRING, {
-		useUnifiedTopology: true,
-		useNewUrlParser: true
-	})
-		.then(() => {
-			const product = new ProductModel();
-			product._id = 12_345;
-			product.name = 'rest';
+	let pool: BoundPool = container.resolve("Pool");
+	let client: Client = await pool.connect();
 
-			product.save();
+	for (let file of files) {
+		var raw = fs.readFileSync(file);
+		var product: IProduct = JSON.parse(raw.toString());
 
-			const db = mongoose.connection;
-			// Var db = mongoose.connection;
+		await client.query('INSERT INTO products VALUES($1, $2, $3, $4, $5, $6, $7)',
+			[product.id, product.name, product.price, product.description, product.categories.join(';'),
+			product.currencyCode, product.sizes.join(';')]);
+	}
+}
 
-			// db.once("open", async () => {
-			//     filehound.create()
-			//         .paths(process.cwd())
-			//         .depth(0)
-			//         .find()
-			//         .then(files => files.forEach(file => {
-			//             console.log(file);
-			//         }));
-
-			//     console.log("hi");
-
-			//     // var products: IProduct[] = [];
-			//     // for (var key in files) {
-			//     //     var fileName: string = files[key];
-			//     //     var raw = fs.readFileSync(fileName);
-			//     //     var product: IProduct = JSON.parse(raw);
-
-			//     //     products.push(product);
-			//     // }
-
-			//     //container.resolve(LogService).instance.log("info", `Found ${products.length} products`);
-
-			//     // await ProductModel.insertMany(products)
-			//     //     .catch(err => {
-			//     //         console.log(err);
-			//     //     });
-			// });
-
-			// db.on("error", console.error.bind(console, 'conn error:'));
-		});
-};
+registerDependencies();
 
 importProducts().then(
 	() => {

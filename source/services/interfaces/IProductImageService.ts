@@ -1,6 +1,6 @@
-import {IProductImageRequest, Perspective, ProductImageType} from '../../models/interfaces/IProductImage';
+import { ProductImageRequest } from '../../models/interfaces/IProductImage';
 
 export interface IProductImageService {
-	getProductImage(imageRequest: IProductImageRequest): Promise<string>;
-	getProductImages(imageRequest: IProductImageRequest): Promise<string>;
+    getProductImage(imageRequest: ProductImageRequest): Promise<string>;
+    getProductImages(imageRequest: ProductImageRequest): Promise<string[]>;
 }
