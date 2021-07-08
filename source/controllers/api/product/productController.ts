@@ -1,4 +1,3 @@
-import * as express from 'express';
 import { autoInjectable, delay, inject } from 'tsyringe';
 import Controller from '../../../core/controller';
 import ProductService from '../../../services/productService';
@@ -17,11 +16,7 @@ class ProductController extends Controller {
 		this.productService = productService;
 	}
 
-	public initialiseRoutes() {
-		this.router.get(`${this.path}/getProduct`, this.getProduct);
-	}
-
-	getProduct = (request: express.Request, response: express.Response) => { };
+	public initialiseRoutes() {}
 }
 
 export default ProductController;

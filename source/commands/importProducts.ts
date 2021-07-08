@@ -1,32 +1,42 @@
 import 'reflect-metadata';
-import { registerDependencies, container } from './../core/IoC/container';
+import * as fs from 'fs';
 import * as FileHound from 'filehound';
 import * as dotenv from 'dotenv';
-import { IProduct } from '../models/interfaces/IProduct';
-import * as fs from 'fs';
-import { BoundPool, Client } from 'pg';
+import { Pool, PoolClient } from 'pg';
+import { IProduct } from './../models/interfaces/IProduct';
+import { registerDependencies, container } from './../core/IoC/container';
 
 if (process.env.NODE_ENV !== 'production') {
 	dotenv.config();
 }
 
+const generateProductId = (): number => {
+	return Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
+}
+
 const importProducts = async (): Promise<any> => {
-	let files = FileHound.create()
+	const files = FileHound.create()
 		.paths(__dirname + '/products')
 		.findSync();
 
-	let pool: BoundPool = container.resolve("Pool");
-	let client: Client = await pool.connect();
+	const pool: Pool = container.resolve('Pool');
+	const client: PoolClient = await pool.connect();
 
-	for (let file of files) {
-		var raw = fs.readFileSync(file);
-		var product: IProduct = JSON.parse(raw.toString());
+	for (const file of files) {
+		const raw = fs.readFileSync(file);
+		const product: IProduct = JSON.parse(raw.toString());
 
-		await client.query('INSERT INTO products VALUES($1, $2, $3, $4, $5, $6, $7)',
-			[product.id, product.name, product.price, product.description, product.categories.join(';'),
-			product.currencyCode, product.sizes.join(';')]);
+		product.id ||= generateProductId();
+
+		await client.query('INSERT INTO products(id, name, price, description, category_id, currencyCode) VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT DO NOTHING',
+			[product.id,
+			product.name,
+			product.price,
+			product.description,
+			product.category_id,
+			product.currencyCode]);
 	}
-}
+};
 
 registerDependencies();
 
@@ -34,4 +44,7 @@ importProducts().then(
 	() => {
 		process.exit();
 	}
-);
+).catch(error => {
+	console.error(error);
+	process.exit(1);
+});

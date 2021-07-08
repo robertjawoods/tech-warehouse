@@ -1,65 +1,62 @@
 import * as path from 'path';
 import * as express from 'express';
-import { connect } from 'mongoose';
-import { autoInjectable, delay, inject, injectable } from 'tsyringe';
+import { autoInjectable } from 'tsyringe';
 import * as dotenv from 'dotenv';
 import { ControllerLoader } from './core/controllerLoader';
+import { formatCurrency } from './views/viewHelpers';
 
 if (process.env.NODE_ENV !== 'production') {
-    dotenv.config();
+	dotenv.config();
 }
 
 @autoInjectable()
 class App {
-    private readonly app: express.Application;
-    private readonly port: number;
-    private readonly controllerLoader: ControllerLoader;
+	private readonly app: express.Application;
+	private readonly port: number;
+	private readonly controllerLoader: ControllerLoader;
 
-    constructor(port: number, controllerLoader?: ControllerLoader) {
-        this.app = express();
-        this.port = port;
+	constructor(port: number, controllerLoader?: ControllerLoader) {
+		this.app = express();
+		this.port = port;
 
-        this.controllerLoader = controllerLoader;
+		this.controllerLoader = controllerLoader;
 
-        this.initialiseMiddleware();
+		this.initialiseMiddleware();
 
-        this.initialiseControllers();
+		this.initialiseControllers();
 
-        this.app.set('views', path.join(__dirname, 'views'));
-    }
+		this.registerViewHelpers();
+	}
 
-    private initialiseMiddleware() {
-        this.app.use(express.json());
-        this.app.use('/public', express.static('public'));
-        this.app.set('view engine', 'ejs');
+	private initialiseMiddleware() {
+		this.app.use(express.json());
+		this.app.use('/public', express.static('public'));
 
-        this.app.disable('x-powered-by');
-    }
+		this.app.set('view engine', 'ejs');
+		this.app.set('views', path.join(__dirname, 'views'));
 
-    private initialiseControllers() {
-        this.controllerLoader.getControllers().then(controllers => {
-            for (const controller of controllers) {
-                this.app.use(controller.basePath, controller.router);
-            }
-        });
-    }
+		this.app.disable('x-powered-by');
+	}
 
-    public listen() {
-        this.app.listen(this.port, () => {
-            console.log(`Listening on http://localhost:${this.port}`);
-        });
-    }
+	private initialiseControllers() {
+		this.controllerLoader.getControllers().then(controllers => {
+			for (const controller of controllers) {
+				this.app.use(controller.basePath, controller.router);
+			}
+		}).catch(_ => {
+			throw new Error('Unable to load controllers');
+		});
+	}
 
-    private async connectToMongo() {
-        await connect(process.env.MONGO_CONNECTION_STRING, {
-            useUnifiedTopology: true,
-            useNewUrlParser: true
-        }, error => {
-            if (error) {
-                console.log(error);
-            }
-        });
-    }
+	private registerViewHelpers() {
+		this.app.locals.formatCurrency = formatCurrency;
+	}
+
+	public listen() {
+		this.app.listen(this.port, () => {
+			console.log(`Listening on http://localhost:${this.port}`);
+		});
+	}
 }
 
 export default App;

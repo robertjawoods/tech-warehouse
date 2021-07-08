@@ -1,30 +1,39 @@
 import * as express from 'express';
 import Controller from '../../core/controller';
+import { container } from '../../core/IoC/container';
+import { IProduct } from '../../models/interfaces/IProduct';
 import { ProductListingModel } from '../../models/productListing';
+import ProductService from '../../services/productService';
 
 export class ProductListingController extends Controller {
-    constructor() {
-        super();
+	private readonly productService: ProductService;
 
-        this.basePath = '/products';
+	constructor() {
+		super();
 
-        this.initialiseRoutes();
-    }
+		this.basePath = '/products';
 
-    getDivision = (request: express.Request, response: express.Response) => {
-        let model = new ProductListingModel();
+		this.initialiseRoutes();
 
-        model.divisionName = request.params.divisionName;
+		this.productService = container.resolve(ProductService);
+	}
 
-        response.render('product/listing', { model });
-    };
+	getDivision = async (request: express.Request, response: express.Response) => {
+		const model = new ProductListingModel();
 
+		const categoryName = request.params.divisionName;
 
-    private initialiseRoutes() {
-        this.router.get("/:divisionName", this.getDivision);
-        this.router.get("/", (request: express.Request, response: express.Response) => {
-            response.send("product index");
-        })
-    }
+		model.products = await this.productService.getProducts(categoryName);
 
+		model.divisionName = categoryName;
+
+		response.render('product/listing', { model });
+	};
+
+	private initialiseRoutes() {
+		this.router.get('/:divisionName', this.getDivision);
+		this.router.get('/', (_: express.Request, response: express.Response) => {
+			response.send('product index');
+		});
+	}
 }

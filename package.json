@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@abraham/reflection": "^0.8.0",
+    "@types/pg": "^8.6.0",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
@@ -39,11 +40,15 @@
     "rules": {
       "unicorn/filename-case": "off",
       "unicorn/prefer-node-protocol": "off",
-      "@typescript-eslint/object-curly-spacing": "off"
+      "@typescript-eslint/object-curly-spacing": "off",
+      "@typescript-eslint/restrict-template-expressions": "off"
     },
     "overrides": [
       {
-        "files": "./server.ts",
+        "files": [
+          "./server.ts",
+          "./source/commands/*.ts"
+        ],
         "rules": {
           "import/no-unassigned-import": "off"
         }

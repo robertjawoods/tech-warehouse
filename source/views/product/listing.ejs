@@ -1,3 +1,27 @@
-<h1>
-    <%= model.divisionName %>
-</h1>
+<html>
+<%- include('../partials/navbar') %>
+
+    <h1>
+        <%= model.divisionName %>
+    </h1>
+
+    <div class="product-container">
+        <% model.products.forEach(product=> { %>
+            <% console.log(product.images[0]) %>
+
+                <div class="product-card">
+                    <h2>
+                        <a href="/product/<%= product.id %>">
+                            <%= product.name %>
+                        </a>
+                    </h2>
+                    <img src="./../../../public/assets/images/<%= product.images[0] %>" />
+                    <p>
+                        <%= formatCurrency(product.price, product.currencycode) %>
+                    </p>
+                </div>
+                <% }) %>
+    </div>
+
+
+</html>

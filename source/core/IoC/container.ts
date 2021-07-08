@@ -1,19 +1,32 @@
-import { container, Lifecycle } from 'tsyringe';
-import { IProductImageService } from '../../services/interfaces/IProductImageService';
+import { container } from 'tsyringe';
 import { ProductImageServiceFactory } from '../factories/productImageServiceFactory';
 import { ControllerLoader } from '../controllerLoader';
 import Pool from '../data/pool';
+import { IProductImageService } from '../../services/interfaces/IProductImageService';
 import ProductService from '../../services/productService';
 import { ProductRepository } from '../../repositories/productRepository';
+import { CategoryRepository } from '../../repositories/categoryRepository';
 
 export const registerDependencies = () => {
-    container.register<IProductImageService>("IProductImageService", { useFactory: (_) => ProductImageServiceFactory.getImageService() });
-    container.register<ControllerLoader>(ControllerLoader, { useClass: ControllerLoader });
-    container.register<ProductService>(ProductService, { useClass: ProductService });
-    container.register(ProductRepository, { useClass: ProductRepository });
+	container.register<ControllerLoader>(ControllerLoader, { useClass: ControllerLoader });
 
-    container.register("Pool", { useValue: Pool })
+	registerServices();
+
+	registerRepositories();
+
+	container.register('Pool', { useValue: Pool });
 };
+
+const registerServices = () => {
+	container.register<ProductService>(ProductService, { useClass: ProductService });
+
+	container.register<IProductImageService>('IProductImageService', { useFactory: _ => ProductImageServiceFactory.getImageService() });
+}
+
+const registerRepositories = () => {
+	container.register(ProductRepository, { useClass: ProductRepository });
+	container.register(CategoryRepository, { useClass: CategoryRepository });
+}
 
 export { container };
 

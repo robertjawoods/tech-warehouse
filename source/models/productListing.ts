@@ -1,6 +1,6 @@
-import { IProduct } from "./interfaces/IProduct";
+import { IProduct } from './interfaces/IProduct';
 
 export class ProductListingModel {
-    public divisionName: string;
-    public products: IProduct[] = [];
+	public divisionName: string;
+	public products: IProduct[] = [];
 }

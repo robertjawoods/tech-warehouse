@@ -1,14 +1,20 @@
 <html>
 <%- include('../partials/navbar') %>
 
+    <link rel="stylesheet" href="/public/assets/styles/product-display.css" />
+
     <h1 class="test">
         <%= product.name %>
     </h1>
 
-    <img src="./../../../public/assets/images/<%= product.images[0] %>" />
+    <img class="hero-image" src="./../../../public/assets/images/<%= product.images[0] %>" />
 
     <h2>
         <%= product.description %>
+    </h2>
+
+    <h2>
+        <%= formatCurrency(product.price, product.currencycode) %>
     </h2>
 
 </html>
