@@ -1,15 +1,18 @@
-import { autoInjectable, inject } from "tsyringe";
+
 import { CategoryNode } from "../models/categoryNode";
 import type { CategoryRepository } from "../repositories/categoryRepository";
 import * as arrayToTree from "performant-array-to-tree";
 import cache from "../core/memoryCache";
+import { inject, injectable } from "inversify";
+import { TypeSymbols } from "../core/IoC/types";
 
+@injectable()
 export class CategoryService {
     private categoryRepository: CategoryRepository;
 
     private readonly cacheKey = "category-hierarchy";
 
-    constructor(@inject("CategoryRepository") categoryRepository?: CategoryRepository) {
+    constructor(@inject(TypeSymbols.CategoryRepository) categoryRepository?: CategoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 

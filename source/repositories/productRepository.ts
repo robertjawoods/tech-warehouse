@@ -1,10 +1,12 @@
-import { autoInjectable, delay, inject } from 'tsyringe';
+
 import { IProduct } from '../models/interfaces/IProduct';
 import { LogService } from '../services/logService';
 import { ProductMapper } from '../core/mapping/productMapper';
 import { PoolClient, Pool } from 'pg'
+import { TypeSymbols } from '../core/IoC/types';
+import { inject, injectable } from 'inversify';
 
-@autoInjectable()
+@injectable()
 export class ProductRepository {
     private readonly logger: LogService;
 
@@ -12,7 +14,7 @@ export class ProductRepository {
     private readonly productMapper: ProductMapper<IProduct, string>;
 
 
-    constructor(@inject(delay(() => LogService)) logger?: LogService, @inject("Pool") pool?: Pool) {
+    constructor(@inject(TypeSymbols.LogService) logger?: LogService, @inject(TypeSymbols.Pool) pool?: Pool) {
         this.pool = pool;
 
         this.productMapper = new ProductMapper<IProduct, string>();

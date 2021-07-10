@@ -1,13 +1,14 @@
-import { autoInjectable } from 'tsyringe';
+import { inject, injectable } from 'inversify';
+import { TypeSymbols } from '../core/IoC/types';
 import { Perspective, ProductImageRequest, ProductImageType } from '../models/interfaces/IProductImage';
 import { IProductImageService } from './interfaces/IProductImageService';
 import { LogService } from './logService';
 
-@autoInjectable()
+@injectable()
 export class FileSystemProductImageService implements IProductImageService {
 	private readonly logger: LogService;
 
-	constructor(logger?: LogService) {
+	constructor(@inject(TypeSymbols.LogService) logger?: LogService) {
 		this.logger = logger;
 	}
 

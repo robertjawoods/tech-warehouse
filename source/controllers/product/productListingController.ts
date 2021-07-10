@@ -1,6 +1,6 @@
 import * as express from 'express';
 import Controller from '../../core/controller';
-import { container } from '../../core/IoC/container';
+import { container } from '../../core/IoC/inversify.config';
 import { IProduct } from '../../models/interfaces/IProduct';
 import { ProductListingModel } from '../../models/productListing';
 import ProductService from '../../services/productService';

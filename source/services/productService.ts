@@ -1,16 +1,18 @@
-import { autoInjectable, delay, inject } from 'tsyringe';
 import { IProduct } from '../models/interfaces/IProduct';
 import { Perspective, ProductImageType } from '../models/interfaces/IProductImage';
 import { ProductRepository } from '../repositories/productRepository';
 import { IProductImageService } from './interfaces/IProductImageService';
-import { container } from './../core/IoC/container';
+import { inject, injectable } from 'inversify';
+import { TypeSymbols } from '../core/IoC/types';
+
+@injectable()
 class ProductService {
 	productRepository: ProductRepository;
 	productImageService: IProductImageService;
 
-	constructor() {
-		this.productRepository = container.resolve(ProductRepository);
-		this.productImageService = container.resolve('IProductImageService');
+	constructor(@inject(TypeSymbols.ProductRepository) productRepository?: ProductRepository, @inject(TypeSymbols.IProductImageService) productImageService?: () => IProductImageService) {
+		this.productRepository = productRepository;
+		this.productImageService = productImageService();
 	}
 
 	async getProduct(id: number): Promise<IProduct> {

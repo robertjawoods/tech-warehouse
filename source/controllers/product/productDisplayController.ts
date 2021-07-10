@@ -2,7 +2,7 @@ import * as express from 'express';
 import Controller from '../../core/controller';
 import ProductService from '../../services/productService';
 import { IProduct } from '../../models/interfaces/IProduct';
-import { container } from '../../core/IoC/container';
+import { container } from '../../core/IoC/inversify.config';
 
 class ProductDisplayController extends Controller {
 	private readonly productService: ProductService;

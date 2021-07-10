@@ -1,25 +1,25 @@
 import * as path from 'path';
 import * as express from 'express';
-import { autoInjectable } from 'tsyringe';
 import * as dotenv from 'dotenv';
 import { ControllerLoader } from './core/controllerLoader';
 import * as viewHelpers from './views/viewHelpers';
+import { inject, injectable } from 'inversify';
+import { TypeSymbols } from './core/IoC/types';
+import { lazyInject } from './core/IoC/inversify.config';
 
 if (process.env.NODE_ENV !== 'production') {
 	dotenv.config();
 }
 
-@autoInjectable()
 class App {
 	private readonly app: express.Application;
 	private readonly port: number;
+	@lazyInject(TypeSymbols.ControllerLoader)
 	private readonly controllerLoader: ControllerLoader;
 
-	constructor(port: number, controllerLoader?: ControllerLoader) {
+	constructor(port: number) {
 		this.app = express();
 		this.port = port;
-
-		this.controllerLoader = controllerLoader;
 
 		this.initialiseMiddleware();
 

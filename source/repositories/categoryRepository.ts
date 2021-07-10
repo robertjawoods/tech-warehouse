@@ -1,10 +1,12 @@
 import { Pool } from "pg";
-import { inject } from "tsyringe";
+import { inject, injectable } from "inversify";
 import { CategoryNode } from "../models/categoryNode";
+import { TypeSymbols } from "../core/IoC/types";
 
+@injectable()
 export class CategoryRepository {
     pool: Pool;
-    constructor(@inject("Pool") pool?: Pool) {
+    constructor(@inject(TypeSymbols.Pool) pool?: Pool) {
         this.pool = pool;
     }
 

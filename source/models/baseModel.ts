@@ -1,17 +1,18 @@
 import { TreeItem } from "performant-array-to-tree";
-import { autoInjectable } from "tsyringe";
 import { CategoryService } from "../services/categoryService";
-import { container } from "../core/IoC/container";
+import { container, lazyInject } from "../core/IoC/inversify.config";
+import { inject, injectable } from "inversify";
+import { TypeSymbols } from "../core/IoC/types";
 
-@autoInjectable()
+@injectable()
 export class BaseModel<T> {
     public categoryHierarchy: TreeItem[];
     public modelData: T;
 
+    @lazyInject(TypeSymbols.CategoryService)
     private categoryService: CategoryService;
 
     constructor() {
-        this.categoryService = container.resolve(CategoryService);
     }
 
     public async setData(data: T): Promise<BaseModel<T>> {

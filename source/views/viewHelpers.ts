@@ -1,5 +1,5 @@
 import { CategoryService } from '../services/categoryService';
-import { container } from './../core/IoC/container';
+import { container } from '../core/IoC/inversify.config';
 
 import * as arrayToTree from "performant-array-to-tree";
 import { TreeItem } from 'performant-array-to-tree';

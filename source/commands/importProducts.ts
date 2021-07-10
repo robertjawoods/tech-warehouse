@@ -4,7 +4,7 @@ import * as FileHound from 'filehound';
 import * as dotenv from 'dotenv';
 import { Pool, PoolClient } from 'pg';
 import { IProduct } from './../models/interfaces/IProduct';
-import { registerDependencies, container } from './../core/IoC/container';
+import { registerDependencies, container } from '../core/IoC/inversify.config';
 
 if (process.env.NODE_ENV !== 'production') {
 	dotenv.config();

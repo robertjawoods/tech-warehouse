@@ -1,13 +1,15 @@
 import * as path from 'path';
 import * as FileHound from 'filehound';
-import { autoInjectable } from 'tsyringe';
+
 import { LogService } from '../services/logService';
 import Controller from './controller';
-@autoInjectable()
+import { inject, injectable } from 'inversify';
+import { TypeSymbols } from './IoC/types';
+@injectable()
 export class ControllerLoader {
     private readonly logger: LogService;
 
-    constructor(logger?: LogService) {
+    constructor(@inject(TypeSymbols.LogService) logger?: LogService) {
         this.logger = logger;
     }
 

@@ -1,12 +1,13 @@
-import { autoInjectable, delay, inject } from 'tsyringe';
+import { inject, injectable } from 'inversify';
 import Controller from '../../../core/controller';
+import { TypeSymbols } from '../../../core/IoC/types';
 import ProductService from '../../../services/productService';
 
-@autoInjectable()
+@injectable()
 class ProductController extends Controller {
 	private readonly productService: ProductService;
 
-	constructor(@inject(delay(() => ProductService)) productService?: ProductService) {
+	constructor(@inject(TypeSymbols.ProductService) productService?: ProductService) {
 		super();
 
 		this.basePath = '/api/product';
@@ -16,7 +17,7 @@ class ProductController extends Controller {
 		this.productService = productService;
 	}
 
-	public initialiseRoutes() {}
+	public initialiseRoutes() { }
 }
 
 export default ProductController;
