@@ -6,6 +6,7 @@ import { IProductImageService } from '../../services/interfaces/IProductImageSer
 import ProductService from '../../services/productService';
 import { ProductRepository } from '../../repositories/productRepository';
 import { CategoryRepository } from '../../repositories/categoryRepository';
+import { CategoryService } from '../../services/categoryService';
 
 export const registerDependencies = () => {
 	container.register<ControllerLoader>(ControllerLoader, { useClass: ControllerLoader });
@@ -19,8 +20,8 @@ export const registerDependencies = () => {
 
 const registerServices = () => {
 	container.register<ProductService>(ProductService, { useClass: ProductService });
-
 	container.register<IProductImageService>('IProductImageService', { useFactory: _ => ProductImageServiceFactory.getImageService() });
+	container.register<CategoryService>(CategoryService, { useClass: CategoryService });
 }
 
 const registerRepositories = () => {

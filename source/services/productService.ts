@@ -1,11 +1,9 @@
-import { autoInjectable } from 'tsyringe';
+import { autoInjectable, delay, inject } from 'tsyringe';
 import { IProduct } from '../models/interfaces/IProduct';
 import { Perspective, ProductImageType } from '../models/interfaces/IProductImage';
 import { ProductRepository } from '../repositories/productRepository';
 import { IProductImageService } from './interfaces/IProductImageService';
 import { container } from './../core/IoC/container';
-
-@autoInjectable()
 class ProductService {
 	productRepository: ProductRepository;
 	productImageService: IProductImageService;

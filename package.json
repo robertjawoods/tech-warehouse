@@ -7,6 +7,7 @@
   "scripts": {
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
     "start": "ts-node server.ts",
+    "watch": "nodemon",
     "import": "ts-node ./source/commands/importProducts.ts"
   },
   "author": "Robert Woods",
@@ -19,8 +20,10 @@
     "express": "^4.17.1",
     "filehound": "^1.17.4",
     "mocha": "^9.0.2",
+    "node-cache": "^5.1.2",
     "node-ts": "^5.1.1",
     "nodemon": "^2.0.9",
+    "performant-array-to-tree": "^1.9.1",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.0.0",

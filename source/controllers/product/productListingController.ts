@@ -19,13 +19,16 @@ export class ProductListingController extends Controller {
 	}
 
 	getDivision = async (request: express.Request, response: express.Response) => {
-		const model = new ProductListingModel();
 
 		const categoryName = request.params.divisionName;
 
-		model.products = await this.productService.getProducts(categoryName);
+		const products = await this.productService.getProducts(categoryName);
 
-		model.divisionName = categoryName;
+		const model = new ProductListingModel();
+
+		console.time('cache')
+		await model.setData([categoryName, products]);
+		console.timeEnd('cache');
 
 		response.render('product/listing', { model });
 	};

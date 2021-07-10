@@ -1,6 +1,11 @@
+import { autoInjectable } from 'tsyringe';
+import { CategoryService } from '../services/categoryService';
+import { BaseModel } from './baseModel';
 import { IProduct } from './interfaces/IProduct';
 
-export class ProductListingModel {
-	public divisionName: string;
-	public products: IProduct[] = [];
+@autoInjectable()
+export class ProductListingModel extends BaseModel<[divisionName: string, products: IProduct[]]> {
+	constructor() {
+		super();
+	}
 }

@@ -1,0 +1,416 @@
+[
+    {
+        "children": [
+            {
+                "children": [
+                    {
+                        "children": [
+                            {
+                                "children": [],
+                                "data": {
+                                    "id": 4,
+                                    "name": "controllers",
+                                    "web_name": "Controllers",
+                                    "parent_id": 3
+                                }
+                            }
+                        ],
+                        "data": {
+                            "id": 3,
+                            "name": "accessories",
+                            "web_name": "accessories",
+                            "parent_id": 2
+                        }
+                    }
+                ],
+                "data": {
+                    "id": 2,
+                    "name": "xbox",
+                    "web_name": "Xbox",
+                    "parent_id": 1
+                }
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 6,
+                            "name": "games",
+                            "web_name": "Games",
+                            "parent_id": 5
+                        }
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [],
+                                "data": {
+                                    "id": 9,
+                                    "name": "controllers",
+                                    "web_name": "Controllers",
+                                    "parent_id": 7
+                                }
+                            }
+                        ],
+                        "data": {
+                            "id": 7,
+                            "name": "accessories",
+                            "web_name": "Accessories",
+                            "parent_id": 5
+                        }
+                    }
+                ],
+                "data": {
+                    "id": 5,
+                    "name": "playstation",
+                    "web_name": "Playstation",
+                    "parent_id": 1
+                }
+            },
+            {
+                "children": [],
+                "data": {
+                    "id": 44,
+                    "name": "nintendo-switch",
+                    "web_name": "Nintendo Switch",
+                    "parent_id": 1
+                }
+            }
+        ],
+        "data": {
+            "id": 1,
+            "name": "consoles",
+            "web_name": "Consoles",
+            "parent_id": null
+        }
+    },
+    {
+        "children": [
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 11,
+                            "name": "accessories",
+                            "web_name": "Accessories",
+                            "parent_id": 10
+                        }
+                    }
+                ],
+                "data": {
+                    "id": 10,
+                    "name": "mac",
+                    "web_name": "Mac",
+                    "parent_id": 8
+                }
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 13,
+                            "name": "towers",
+                            "web_name": "Towers",
+                            "parent_id": 12
+                        }
+                    },
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 14,
+                            "name": "aio",
+                            "web_name": "AIO",
+                            "parent_id": 12
+                        }
+                    }
+                ],
+                "data": {
+                    "id": 12,
+                    "name": "windows",
+                    "web_name": "Windows",
+                    "parent_id": 8
+                }
+            }
+        ],
+        "data": {
+            "id": 8,
+            "name": "desktop",
+            "web_name": "Desktop",
+            "parent_id": null
+        }
+    },
+    {
+        "children": [
+            {
+                "children": [],
+                "data": {
+                    "id": 16,
+                    "name": "macbooks",
+                    "web_name": "Macbooks",
+                    "parent_id": 15
+                }
+            },
+            {
+                "children": [],
+                "data": {
+                    "id": 17,
+                    "name": "windows",
+                    "web_name": "Windows",
+                    "parent_id": 15
+                }
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 19,
+                            "name": "cases",
+                            "web_name": "Cases",
+                            "parent_id": 18
+                        }
+                    }
+                ],
+                "data": {
+                    "id": 18,
+                    "name": "accessories",
+                    "web_name": "Accessories",
+                    "parent_id": 15
+                }
+            }
+        ],
+        "data": {
+            "id": 15,
+            "name": "laptops",
+            "web_name": "Laptops",
+            "parent_id": null
+        }
+    },
+    {
+        "children": [
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 29,
+                            "name": "intel",
+                            "web_name": "Intel",
+                            "parent_id": 21
+                        }
+                    },
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 30,
+                            "name": "amd",
+                            "web_name": "AMD",
+                            "parent_id": 21
+                        }
+                    }
+                ],
+                "data": {
+                    "id": 21,
+                    "name": "cpu",
+                    "web_name": "CPU",
+                    "parent_id": 20
+                }
+            },
+            {
+                "children": [],
+                "data": {
+                    "id": 22,
+                    "name": "psu",
+                    "web_name": "PSU",
+                    "parent_id": 20
+                }
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 31,
+                            "name": "atx-motherboards",
+                            "web_name": "ATX",
+                            "parent_id": 23
+                        }
+                    },
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 32,
+                            "name": "itx-motherboards",
+                            "web_name": "ITX",
+                            "parent_id": 23
+                        }
+                    }
+                ],
+                "data": {
+                    "id": 23,
+                    "name": "motherboards",
+                    "web_name": "Motherboards",
+                    "parent_id": 20
+                }
+            },
+            {
+                "children": [],
+                "data": {
+                    "id": 24,
+                    "name": "cases",
+                    "web_name": "Cases",
+                    "parent_id": 20
+                }
+            },
+            {
+                "children": [],
+                "data": {
+                    "id": 25,
+                    "name": "ram",
+                    "web_name": "RAM",
+                    "parent_id": 20
+                }
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                            {
+                                "children": [],
+                                "data": {
+                                    "id": 35,
+                                    "name": "m2",
+                                    "web_name": "M2",
+                                    "parent_id": 33
+                                }
+                            }
+                        ],
+                        "data": {
+                            "id": 33,
+                            "name": "ssd",
+                            "web_name": "SSD",
+                            "parent_id": 26
+                        }
+                    },
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 34,
+                            "name": "hdd",
+                            "web_name": "HDD",
+                            "parent_id": 26
+                        }
+                    }
+                ],
+                "data": {
+                    "id": 26,
+                    "name": "storage",
+                    "web_name": "Storage",
+                    "parent_id": 20
+                }
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 36,
+                            "name": "gpu-nvidia",
+                            "web_name": "NVidia",
+                            "parent_id": 27
+                        }
+                    },
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 37,
+                            "name": "gpu-amd",
+                            "web_name": "AMD",
+                            "parent_id": 27
+                        }
+                    }
+                ],
+                "data": {
+                    "id": 27,
+                    "name": "gpu",
+                    "web_name": "GPU",
+                    "parent_id": 20
+                }
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 38,
+                            "name": "peripherals-displays",
+                            "web_name": "Displays",
+                            "parent_id": 28
+                        }
+                    },
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 39,
+                            "name": "peripherals-keyboards",
+                            "web_name": "Keyboards",
+                            "parent_id": 28
+                        }
+                    },
+                    {
+                        "children": [],
+                        "data": {
+                            "id": 40,
+                            "name": "peripherals-mice",
+                            "web_name": "Mice",
+                            "parent_id": 28
+                        }
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [],
+                                "data": {
+                                    "id": 42,
+                                    "name": "audio-speakers",
+                                    "web_name": "speakers",
+                                    "parent_id": 41
+                                }
+                            },
+                            {
+                                "children": [],
+                                "data": {
+                                    "id": 43,
+                                    "name": "audio-headsets",
+                                    "web_name": "Headets",
+                                    "parent_id": 41
+                                }
+                            }
+                        ],
+                        "data": {
+                            "id": 41,
+                            "name": "peripherals-audio",
+                            "web_name": "Audio",
+                            "parent_id": 28
+                        }
+                    }
+                ],
+                "data": {
+                    "id": 28,
+                    "name": "peripherals",
+                    "web_name": "Peripherals",
+                    "parent_id": 20
+                }
+            }
+        ],
+        "data": {
+            "id": 20,
+            "name": "pc-components",
+            "web_name": "PC Components",
+            "parent_id": null
+        }
+    }
+]

@@ -1,10 +1,7 @@
 import { autoInjectable, delay, inject } from 'tsyringe';
 import { IProduct } from '../models/interfaces/IProduct';
 import { LogService } from '../services/logService';
-
-import { container } from '../core/IoC/container';
 import { ProductMapper } from '../core/mapping/productMapper';
-
 import { PoolClient, Pool } from 'pg'
 
 @autoInjectable()
@@ -15,8 +12,8 @@ export class ProductRepository {
     private readonly productMapper: ProductMapper<IProduct, string>;
 
 
-    constructor(@inject(delay(() => LogService)) logger?: LogService) {
-        this.pool = container.resolve('Pool');
+    constructor(@inject(delay(() => LogService)) logger?: LogService, @inject("Pool") pool?: Pool) {
+        this.pool = pool;
 
         this.productMapper = new ProductMapper<IProduct, string>();
         this.logger = logger;

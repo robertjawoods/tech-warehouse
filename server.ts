@@ -4,6 +4,8 @@ import { registerDependencies } from './source/core/IoC/container';
 
 registerDependencies();
 
-const app = new App(3000);
+const port: number = parseInt(process.env.PORT) || 3000;
+
+const app = new App(port);
 
 app.listen();

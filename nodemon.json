@@ -3,5 +3,8 @@
     "ignore": [
         "src/**/*.spec.ts"
     ],
-    "exec": "ts-node server.ts"
+    "exec": "ts-node server.ts",
+    "env": {
+        "PORT": 6161
+    }
 }

@@ -31,6 +31,8 @@ export class ControllerLoader {
                     return import(`./${rel}`).then(controller => {
                         const constructorName: string = Object.keys(controller)[0];
 
+                        console.log(`attempting to initilise ${constructorName}`)
+
                         return new controller[constructorName]();
                     });
                 }));

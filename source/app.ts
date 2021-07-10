@@ -3,7 +3,7 @@ import * as express from 'express';
 import { autoInjectable } from 'tsyringe';
 import * as dotenv from 'dotenv';
 import { ControllerLoader } from './core/controllerLoader';
-import { formatCurrency } from './views/viewHelpers';
+import * as viewHelpers from './views/viewHelpers';
 
 if (process.env.NODE_ENV !== 'production') {
 	dotenv.config();
@@ -43,13 +43,15 @@ class App {
 			for (const controller of controllers) {
 				this.app.use(controller.basePath, controller.router);
 			}
-		}).catch(_ => {
+		}).catch(error => {
+			console.error(error);
 			throw new Error('Unable to load controllers');
 		});
 	}
 
 	private registerViewHelpers() {
-		this.app.locals.formatCurrency = formatCurrency;
+		this.app.locals.formatCurrency = viewHelpers.formatCurrency;
+		this.app.locals.getMenuSection = viewHelpers.getMenuSection;
 	}
 
 	public listen() {

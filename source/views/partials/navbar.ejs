@@ -1,11 +1,88 @@
 <link rel="stylesheet" href="/public/assets/styles/navbar.css" />
+<div class="navbar">
+    <a class="active" href="/">Home</a>
+    <% hierarchy.forEach(element=> { %>
+        <%- getMenuSection(element); %>
+            <% })%>
 
-<div class="topnav">
-    <a class="active" href="#home">Home</a>
-    <a href="#men">Men</a>
-    <a href="#women">Women</a>
-    <a href="#boys">Boys</a>
-    <a href="#girls">Girls</a>
-    <a href="#sale">Sale</a>
-    <input type="text" placeholder="Search...">
+
+                <!-- <div class="subnav">
+                        <button class="subnavbtn">About <i class="fa fa-caret-down"></i></button>
+                        <div class="subnav-content">
+                            <a href="#company">Company</a>
+                            <a href="#team">Team</a>
+                            <a href="#careers">Careers</a>
+                        </div>
+                    </div>-->
+                <input type="text" placeholder="Search...">
+
+                <!-- <div class="navbar">
+                    <a class="active" href="/">Home</a>
+
+
+                    <div class="subnav">
+                        <button class="subnavbtn">Consoles <i class="fa fa-caret-down"></i></button>
+                        <div class="subnav-content">
+                            <div class="subnav">
+                                <button class="subnavbtn">Xbox <i class="fa fa-caret-down"></i></button>
+                                <div class="subnav-content">
+                                    <div class="subnav">
+                                        <button class="subnavbtn">accessories <i class="fa fa-caret-down"></i></button>
+                                        <div class="subnav-content">
+                                            <a href='#controllers'>Controllers</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="subnav">
+                        <button class="subnavbtn">Desktop <i class="fa fa-caret-down"></i></button>
+                        <div class="subnav-content">
+
+                            <div class="subnav">
+                                <button class="subnavbtn">Mac <i class="fa fa-caret-down"></i></button>
+                                <div class="subnav-content">
+
+                                    <a href='#accessories'>Accessories</a>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="subnav">
+                        <button class="subnavbtn">Laptops <i class="fa fa-caret-down"></i></button>
+                        <div class="subnav-content">
+
+                            <a href='#macbooks'>Macbooks</a>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="subnav">
+                        <button class="subnavbtn">PC Components <i class="fa fa-caret-down"></i></button>
+                        <div class="subnav-content">
+
+                            <div class="subnav">
+                                <button class="subnavbtn">CPU <i class="fa fa-caret-down"></i></button>
+                                <div class="subnav-content">
+
+                                    <a href='#intel'>Intel</a>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> -->
 </div>
