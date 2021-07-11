@@ -5,6 +5,7 @@
     ],
     "exec": "ts-node server.ts",
     "env": {
-        "PORT": 6161
+        "PORT": 6161,
+        "DEBUG": "express:*"
     }
 }

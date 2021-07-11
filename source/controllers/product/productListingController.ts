@@ -1,24 +1,20 @@
 import * as express from 'express';
-import Controller from '../../core/controller';
 import { container } from '../../core/IoC/inversify.config';
 import { IProduct } from '../../models/interfaces/IProduct';
 import { ProductListingModel } from '../../models/productListing';
 import ProductService from '../../services/productService';
-
-export class ProductListingController extends Controller {
+import { Controller, Get } from '@overnightjs/core';
+@Controller('products')
+export class ProductListingController {
 	private readonly productService: ProductService;
 
 	constructor() {
-		super();
-
-		this.basePath = '/products';
-
-		this.initialiseRoutes();
 
 		this.productService = container.resolve(ProductService);
 	}
 
-	getDivision = async (request: express.Request, response: express.Response) => {
+	@Get(':divisionName')
+	async getDivision(request: express.Request, response: express.Response) {
 
 		const categoryName = request.params.divisionName;
 
@@ -32,11 +28,4 @@ export class ProductListingController extends Controller {
 
 		response.render('product/listing', { model });
 	};
-
-	private initialiseRoutes() {
-		this.router.get('/:divisionName', this.getDivision);
-		this.router.get('/', (_: express.Request, response: express.Response) => {
-			response.send('product index');
-		});
-	}
 }

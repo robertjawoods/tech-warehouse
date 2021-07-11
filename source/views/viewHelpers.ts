@@ -14,8 +14,6 @@ export const formatCurrency = (price, currencyCode) => {
 }
 
 export const getMenuSection = (node: TreeItem): string => {
-    console.log(node);
-
     if (!node.children.length) {
         return `<a href='/products/${node.name}'>${node.web_name}</a>`
     }

@@ -7,7 +7,6 @@ import { TypeSymbols } from "../core/IoC/types";
 @injectable()
 export class BaseModel<T> {
     public categoryHierarchy: TreeItem[];
-    public modelData: T;
 
     @lazyInject(TypeSymbols.CategoryService)
     private categoryService: CategoryService;
@@ -15,10 +14,9 @@ export class BaseModel<T> {
     constructor() {
     }
 
-    public async setData(data: T): Promise<BaseModel<T>> {
+    public async setData(data?: T): Promise<BaseModel<T>> {
         this.categoryHierarchy = await this.categoryService.getCategoryHierarchy();
 
-        this.modelData = data;
-        return this;
+        return { ...this, ...data };
     }
 }

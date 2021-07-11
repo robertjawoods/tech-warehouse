@@ -2,7 +2,6 @@ import * as path from 'path';
 import * as FileHound from 'filehound';
 
 import { LogService } from '../services/logService';
-import Controller from './controller';
 import { inject, injectable } from 'inversify';
 import { TypeSymbols } from './IoC/types';
 @injectable()
@@ -17,7 +16,7 @@ export class ControllerLoader {
      *  Load controllers from the controller folder
      * @returns Promise<Controller[]>
      */
-    public getControllers(): Promise<Controller[]> {
+    public getControllers(): Promise<any[]> {
         return FileHound.create()
             .path(`${__dirname}/../controllers`)
             .ext('ts')

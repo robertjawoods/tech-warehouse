@@ -3,22 +3,23 @@ import * as express from 'express';
 import * as dotenv from 'dotenv';
 import { ControllerLoader } from './core/controllerLoader';
 import * as viewHelpers from './views/viewHelpers';
-import { inject, injectable } from 'inversify';
 import { TypeSymbols } from './core/IoC/types';
 import { lazyInject } from './core/IoC/inversify.config';
+import * as expressLayouts from 'express-ejs-layouts';
+import { Server } from '@overnightjs/core';
 
 if (process.env.NODE_ENV !== 'production') {
 	dotenv.config();
 }
 
-class App {
-	private readonly app: express.Application;
+class App extends Server {
 	private readonly port: number;
 	@lazyInject(TypeSymbols.ControllerLoader)
 	private readonly controllerLoader: ControllerLoader;
 
 	constructor(port: number) {
-		this.app = express();
+		super();
+
 		this.port = port;
 
 		this.initialiseMiddleware();
@@ -34,15 +35,17 @@ class App {
 
 		this.app.set('view engine', 'ejs');
 		this.app.set('views', path.join(__dirname, 'views'));
+		this.app.set('layout', path.join(__dirname, 'views', 'layouts', 'main'));
+
+		this.app.use(expressLayouts);
 
 		this.app.disable('x-powered-by');
 	}
 
 	private initialiseControllers() {
 		this.controllerLoader.getControllers().then(controllers => {
-			for (const controller of controllers) {
-				this.app.use(controller.basePath, controller.router);
-			}
+			console.log(controllers);
+			super.addControllers(controllers);
 		}).catch(error => {
 			console.error(error);
 			throw new Error('Unable to load controllers');

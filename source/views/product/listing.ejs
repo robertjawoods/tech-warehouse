@@ -1,28 +1,26 @@
 <html>
 <% const [divisionName, products]=model.modelData; const hierarchy=model.categoryHierarchy;%>
-    <%- include('../partials/navbar', {hierarchy}) %>
+    <h1>
+        <%= divisionName %>
+    </h1>
 
-        <h1>
-            <%= divisionName %>
-        </h1>
+    <div class="product-container">
+        <% products.forEach(product=> { %>
+            <% console.log(product.images[0]) %>
 
-        <div class="product-container">
-            <% products.forEach(product=> { %>
-                <% console.log(product.images[0]) %>
-
-                    <div class="product-card">
-                        <h2>
-                            <a href="/product/<%= product.id %>">
-                                <%= product.name %>
-                            </a>
-                        </h2>
-                        <img src="./../../../public/assets/images/<%= product.images[0] %>" />
-                        <p>
-                            <%= formatCurrency(product.price, product.currencycode) %>
-                        </p>
-                    </div>
-                    <% }) %>
-        </div>
+                <div class="product-card">
+                    <h2>
+                        <a href="/product/<%= product.id %>">
+                            <%= product.name %>
+                        </a>
+                    </h2>
+                    <img src="./../../../public/assets/images/<%= product.images[0] %>" />
+                    <p>
+                        <%= formatCurrency(product.price, product.currencycode) %>
+                    </p>
+                </div>
+                <% }) %>
+    </div>
 
 
 </html>
