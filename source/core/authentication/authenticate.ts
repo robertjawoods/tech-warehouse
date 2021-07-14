@@ -1,21 +1,17 @@
 import { Request, Response } from "express";
+import { UserRepository } from "../../repositories/userRepository";
+import { container } from "../IoC/inversify.config";
+import { TypeSymbols } from "../IoC/types";
 
-export function authenticate(): MethodDecorator {
-    return function (
-        target: Object,
-        propertyKey: string | symbol,
-        descriptor: PropertyDescriptor
-    ) {
-        const original = descriptor.value;
-        descriptor.value = function (...args: any[]) {
 
-            const request = args[0] as Request;
-            const response = args[1] as Response;
-            const next = args[2];
+export async function authenticateRoute(req, res: Response, next) {
+    if (req.user) {
+        let repository: UserRepository = container.get<UserRepository>(TypeSymbols.UserRepository);
 
-            const headers = request.headers;
-
-            next();
-        }
+        req.user = await repository.getUser(req.user);
+        next();
+    }
+    else {
+        res.status(403).redirect('/');
     }
 }

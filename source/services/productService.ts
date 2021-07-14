@@ -18,8 +18,6 @@ class ProductService {
 	async getProduct(id: number): Promise<IProduct> {
 		const product: IProduct = await this.productRepository.getProduct(id);
 
-		console.log(product);
-
 		product.images = [await this.productImageService.getProductImage({
 			id,
 			imageType: ProductImageType.Hero,

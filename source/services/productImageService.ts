@@ -13,7 +13,7 @@ export class FileSystemProductImageService implements IProductImageService {
 	}
 
 	public async getProductImage(imageRequest: ProductImageRequest): Promise<string> {
-		const fileName = `${imageRequest.id}-${ProductImageType[imageRequest.imageType]}-${Perspective[imageRequest.perspective]}.png`;
+		const fileName = `123456-${ProductImageType[imageRequest.imageType]}-${Perspective[imageRequest.perspective]}.png`;
 
 		return fileName.toLowerCase();
 	}

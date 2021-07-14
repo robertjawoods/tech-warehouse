@@ -3,6 +3,7 @@ import ProductService from '../../services/productService';
 import { IProduct } from '../../models/interfaces/IProduct';
 import { container } from '../../core/IoC/inversify.config';
 import { Controller, Get } from '@overnightjs/core';
+import { BaseModel } from '../../models/baseModel';
 @Controller('product')
 class ProductDisplayController {
 	private readonly productService: ProductService;
@@ -18,7 +19,9 @@ class ProductDisplayController {
 
 		const product: IProduct = await this.productService.getProduct(productID);
 
-		response.render('product/index', { product });
+		const model = await new BaseModel<IProduct>().setData(product);
+
+		response.render('product/index', { model });
 	};
 }
 

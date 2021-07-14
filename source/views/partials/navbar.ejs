@@ -1,16 +1,15 @@
 <div class="navbar">
-    <a class="active" href="/">Home</a>
-    <% hierarchy.forEach(element=> { %>
-        <%- getMenuSection(element); %>
-            <% })%>
+    <a href="/">
+        Home
+    </a>
 
-                <input type="text" placeholder="Search...">
-                <a href="/user/login">
-                    <p>Login</p>
-                </a>
+    <a href="/user/login">
+        Login
+    </a>
 
-                <a href="/user/register">
-                    <p>Register</p>
-                </a>
+    <a href="/user/register">
+        Register
+    </a>
 
+    <input type="text" placeholder="Search...">
 </div>

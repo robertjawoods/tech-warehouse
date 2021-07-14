@@ -1,4 +1,36 @@
 .hero-image { 
-    width: 50%;
-    height: 50%;
+    width: 30%;
+    height: auto;
 }
+
+.basket-button { 
+    background-color: #08a6db;    
+    color: white;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    font-family: 'Arsenal', sans-serif;
+}
+
+.basket-button:hover {
+    background-color: #008CBA; /* Green */
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+
+  .product-description {
+    font-family: 'Arsenal', sans-serif;
+  }
+  
+  .product-name { 
+    font-family: 'Quattrocento Sans', sans-serif;
+  }
+
+  .product-price { 
+      font-family: 'Quattrocento Sans', sans-serif;
+  }

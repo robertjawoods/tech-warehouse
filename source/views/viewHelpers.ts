@@ -15,15 +15,12 @@ export const formatCurrency = (price, currencyCode) => {
 
 export const getMenuSection = (node: TreeItem): string => {
     if (!node.children.length) {
-        return `<a href='/products/${node.name}'>${node.web_name}</a>`
+        return `<li><a href='/products/${node.name}'>${node.web_name}</a></li>
+        `
     }
 
-    return `<div class="subnav">
-                <a href='/products/${node.name} '>
-                    <button class="subnavbtn">${node.web_name} <i class="fa fa-caret-down"></i></button>
-                </a>
-                    <div class="subnav-content">
-                        ${getMenuSection(node.children[0])}
-                    </div>
-            </div>`;
+    return `<ul>   
+                <li><a href='/products/${node.name}'>${node.web_name}</a></li>             
+                ${node.children.map(getMenuSection).join('')}
+            </ul>`;
 };

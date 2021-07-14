@@ -1,17 +1,30 @@
-<body>
+<% console.log(model); const product=model.data; %>
 
-    <h1 class="test">
-        <%= product.name %>
-    </h1>
+    <body>
+        <link rel="stylesheet" href="/public/assets/styles/product-display.css" type="text/css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Arsenal&family=Quattrocento+Sans&display=swap"
+            rel="stylesheet">
 
-    <img class="hero-image" src="./../../../public/assets/images/<%= product.images[0] %>" />
+        <div class="product-display-container">
+            <h1 class="product-name">
+                <%= product.name %>
+            </h1>
 
-    <h2>
-        <%= product.description %>
-    </h2>
+            <img class="hero-image" src="./../../../public/assets/images/<%= product.images[0] %>" />
 
-    <h2>
-        <%= formatCurrency(product.price, product.currencycode) %>
-    </h2>
+            <h2 class="product-price">
+                <%= formatCurrency(product.price, product.currencycode) %>
+            </h2>
 
-</body>
+            <button class="basket-button">Add to Basket</button>
+
+            <h2 class="product-description">
+                <%= product.description %>
+            </h2>
+        </div>
+        <div class="related-products-container">
+            <h2>Related Products</h2>
+        </div>
+    </body>

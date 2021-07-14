@@ -1,11 +1,10 @@
 {
-    "ext": "ts,json,ejs",
+    "ext": "ts,json,ejs,css",
     "ignore": [
         "src/**/*.spec.ts"
     ],
     "exec": "ts-node server.ts",
     "env": {
-        "PORT": 6161,
-        "DEBUG": "express:*"
+        "PORT": 6161
     }
 }
