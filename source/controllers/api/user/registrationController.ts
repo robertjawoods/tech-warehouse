@@ -3,9 +3,8 @@ import { Request, Response } from 'express';
 
 @Controller('api/register')
 export class RegistrationController {
-
-    @Post()
-    index(request: Request, response: Response) {
-        console.log(request.body);
-    }
-};
+	@Post()
+	index(request: Request, response: Response) {
+		console.log(request.body);
+	}
+}

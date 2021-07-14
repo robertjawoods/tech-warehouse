@@ -3,16 +3,16 @@ import * as fs from 'fs';
 import * as FileHound from 'filehound';
 import * as dotenv from 'dotenv';
 import { Pool, PoolClient } from 'pg';
-import { IProduct } from './../models/interfaces/IProduct';
 import { registerDependencies, container } from '../core/IoC/inversify.config';
+import { IProduct } from '../models/interfaces/IProduct';
 
 if (process.env.NODE_ENV !== 'production') {
 	dotenv.config();
 }
 
 const generateProductId = (): number => {
-	return Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
-}
+	return Math.floor(Math.random() * (999_999 - 100_000 + 1)) + 100_000;
+};
 
 const importProducts = async (): Promise<any> => {
 	const files = FileHound.create()
@@ -30,11 +30,11 @@ const importProducts = async (): Promise<any> => {
 
 		await client.query('INSERT INTO products(id, name, price, description, category_id, currencyCode) VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT DO NOTHING',
 			[product.id,
-			product.name,
-			product.price,
-			product.description,
-			product.category_id,
-			product.currencyCode]);
+				product.name,
+				product.price,
+				product.description,
+				product.category_id,
+				product.currencyCode]);
 	}
 };
 

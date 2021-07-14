@@ -7,11 +7,10 @@ class ProductController {
 	private readonly productService: ProductService;
 
 	constructor(@inject(TypeSymbols.ProductService) productService?: ProductService) {
-
 		this.productService = productService;
 	}
 
-	public initialiseRoutes() { }
+	public initialiseRoutes() {}
 }
 
 export default ProductController;

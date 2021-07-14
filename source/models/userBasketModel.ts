@@ -1,9 +1,9 @@
-import { IProduct } from "./interfaces/IProduct";
-import { UserModel } from "./user";
+import { IProduct } from './interfaces/IProduct';
+import { UserModel } from './user';
 
 export class UserBasketModel {
-    // Decorate user model
+	// Decorate user model
 
-    public user: UserModel;
-    public basket: IProduct[];
+	public user: UserModel;
+	public basket: IProduct[];
 }

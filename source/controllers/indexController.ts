@@ -1,12 +1,10 @@
 import { Request, Response } from 'express';
-import { BaseModel } from '../models/baseModel';
 import { Controller, Get } from '@overnightjs/core';
+import { BaseModel } from '../models/baseModel';
 
 @Controller('/')
 export class IndexController {
-	constructor() {
-
-	}
+	constructor() {}
 
 	@Get('/')
 	index = async (_: Request, response: Response) => {

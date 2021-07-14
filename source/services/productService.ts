@@ -1,9 +1,9 @@
+import { inject, injectable } from 'inversify';
 import { IProduct } from '../models/interfaces/IProduct';
 import { Perspective, ProductImageType } from '../models/interfaces/IProductImage';
 import { ProductRepository } from '../repositories/productRepository';
-import { IProductImageService } from './interfaces/IProductImageService';
-import { inject, injectable } from 'inversify';
 import { TypeSymbols } from '../core/IoC/types';
+import { IProductImageService } from './interfaces/IProductImageService';
 
 @injectable()
 class ProductService {
@@ -32,13 +32,14 @@ class ProductService {
 	async getProducts(categoryName: string): Promise<IProduct[]> {
 		const products: IProduct[] = await this.productRepository.getProductsByCategoryName(categoryName);
 
-		for (let product of products) {
+		for (const product of products) {
 			product.images = [await this.productImageService.getProductImage({
 				id: product.id,
 				imageType: ProductImageType.Hero,
 				perspective: Perspective.Front
 			})];
 		}
+
 		return products;
 	}
 }

@@ -11,24 +11,22 @@ import { AddressService } from '../../../services/addressService';
 @Controller('api/user')
 @injectable()
 export class UserController {
-    private readonly addressService: AddressService;
+	private readonly addressService: AddressService;
 
-    constructor(@inject(TypeSymbols.AddressService) addressService?: AddressService) {
-        this.addressService = addressService;
-    }
+	constructor(@inject(TypeSymbols.AddressService) addressService?: AddressService) {
+		this.addressService = addressService;
+	}
 
-    @Post('addressbook')
-    @Middleware(authenticateRoute)
-    async addAddress(request, response: Response) {
-        const user: UserModel = request.user;
-        const address: Address = request.body;
+	@Post('addressbook')
+	@Middleware(authenticateRoute)
+	async addAddress(request, response: Response) {
+		const {user} = request;
+		const address: Address = request.body;
 
-        await this.addressService.addAddress(user.id, address);
-    }
+		await this.addressService.addAddress(user.id, address);
+	}
 
-    @Get('addressbook')
-    @Middleware(authenticateRoute)
-    async getAddresses(request: Request, response: Response) {
-
-    }
-};
+	@Get('addressbook')
+	@Middleware(authenticateRoute)
+	async getAddresses(request: Request, response: Response) {}
+}
