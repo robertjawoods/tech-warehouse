@@ -24,8 +24,6 @@ class ProductService {
 			perspective: Perspective.Front
 		})];
 
-		console.log(product);
-
 		return product;
 	}
 
