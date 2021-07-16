@@ -17,14 +17,14 @@ export class BaseRepository {
 		// Try to get the item from the cache
 		return this.tryFetchFromCache<T>(cacheKey)
 			.then((item: T) => {
-			// If the cache was missed
+				// If the cache was missed
 				if (!item) {
 					return this.pool.connect()
-						.then(async client => {
-						// Get the data from the database
+						.then(client => {
+							// Get the data from the database
 							return client.query(query, parameters);
 						}).then((result => {
-						// Map result to T
+							// Map result to T
 							return new Mapper().map<T>(result.rows);
 						}));
 				}
@@ -42,14 +42,14 @@ export class BaseRepository {
 		// Try to get the item from the cache
 		return this.tryFetchFromCache<T>(cacheKey)
 			.then((item: T) => {
-			// If the cache was missed
+				// If the cache was missed
 				if (!item) {
 					return this.pool.connect()
-						.then(async client => {
-						// Get the data from the database
+						.then(client => {
+							// Get the data from the database
 							return client.query(query, parameters);
 						}).then((result => {
-						// Map result to T
+							// Map result to T
 							return new Mapper().map<T>(result.rows[0]);
 						}));
 				}

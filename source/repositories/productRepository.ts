@@ -27,7 +27,7 @@ export class ProductRepository extends BaseRepository {
 	public async getProductsByCategoryId(categoryId: number): Promise<IProduct[]> {
 		const cacheKey = `${categoryId.toString()}-products`;
 
-		return this.queryMany(categoryId.toString(), 'SELECT * FROM products WHERE category_id = $1', [categoryId]);
+		return this.queryMany(cacheKey, 'SELECT * FROM products WHERE category_id = $1', [categoryId]);
 	}
 
 	public async getProductsByCategoryName(categoryName: string): Promise<IProduct[]> {
