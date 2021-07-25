@@ -2,10 +2,8 @@ import * as path from 'path';
 import * as express from 'express';
 import * as cookieParser from 'cookie-parser';
 import * as dotenv from 'dotenv';
-//import * as expressLayouts from 'express-ejs-layouts';
 import { Server } from '@overnightjs/core';
 import * as passport from 'passport';
-import * as expressSession from 'express-session';
 import * as cookieSession from 'cookie-session';
 import { ControllerLoader } from './core/controllerLoader';
 import * as viewHelpers from './views/viewHelpers';
@@ -16,7 +14,6 @@ import { googleStrategy } from './core/authentication/googleStrategyConfig';
 if (process.env.NODE_ENV !== 'production') {
 	dotenv.config();
 }
-
 class App extends Server {
 	private readonly port: number;
 	@lazyInject(TypeSymbols.ControllerLoader)
@@ -60,9 +57,6 @@ class App extends Server {
 
 		this.app.set('view engine', 'pug');
 		this.app.set('views', path.join(__dirname, 'views'));
-		this.app.set('layout', path.join(__dirname, 'views', 'layouts', 'main'));
-
-		//this.app.use(expressLayouts);
 
 		this.app.disable('x-powered-by');
 	}
