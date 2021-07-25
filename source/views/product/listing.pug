@@ -1,0 +1,21 @@
+extends ../layouts/main
+
+block append head
+    link(rel='stylesheet' href='/public/assets/styles/product-listing.css' type='text/css')
+    link(rel='preconnect' href='https://fonts.googleapis.com')
+    link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Arsenal&family=Quattrocento+Sans&display=swap' rel='stylesheet')
+
+block content   
+    - console.log(model); const [divisionName, products]=model.data; const hierarchy=model.categoryHierarchy;
+        h1.division-heading=divisionName
+            .product-container
+                each product in products
+                    .product-card
+                        .product-info
+                        a(href=`/product/${product.id}`)
+                            h2.product-name=product.name 
+                                img.product-image(src=`./../../../public/assets/images/${product.images[0]}`)
+                                p.product-price
+                                - formatCurrency(product.price, product.currencycode) 
+                                    button.basket-button Add to Basket

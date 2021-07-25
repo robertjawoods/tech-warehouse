@@ -1,0 +1,18 @@
+extends ../layouts/main
+
+block content
+  h1 Register
+  form(action='../api/register' method='POST')
+    label(for='first-name') First Name
+    input(type='text' name='first-name' id='')
+    label(for='surname') Surname
+    input(type='text' name='surname' id='')
+    label(for='email') Email
+    input(type='text' name='email' id='')
+    label(for='dob') Date Of Birth
+    input(type='date' name='dob')
+    label(for='password') Password
+    input(type='password')
+    label(for='confirm-password') Confirm Password
+    input(type='password')
+    input(type='submit')

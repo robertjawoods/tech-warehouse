@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as express from 'express';
 import * as cookieParser from 'cookie-parser';
 import * as dotenv from 'dotenv';
-import * as expressLayouts from 'express-ejs-layouts';
+//import * as expressLayouts from 'express-ejs-layouts';
 import { Server } from '@overnightjs/core';
 import * as passport from 'passport';
 import * as expressSession from 'express-session';
@@ -58,11 +58,11 @@ class App extends Server {
 		this.app.use(cookieParser());
 		this.app.use('/public', express.static('public'));
 
-		this.app.set('view engine', 'ejs');
+		this.app.set('view engine', 'pug');
 		this.app.set('views', path.join(__dirname, 'views'));
 		this.app.set('layout', path.join(__dirname, 'views', 'layouts', 'main'));
 
-		this.app.use(expressLayouts);
+		//this.app.use(expressLayouts);
 
 		this.app.disable('x-powered-by');
 	}
