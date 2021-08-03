@@ -13,6 +13,7 @@ export class RedisCache {
 	private readonly client: RedisClient;
 	private readonly getAsync: Function;
 	private readonly setAsync: Function;
+	private readonly invalidateAsync: Function;
 
 	constructor() {
 		this.client = redis.createClient({
@@ -21,6 +22,7 @@ export class RedisCache {
 
 		this.getAsync = promisify(this.client.get).bind(this.client);
 		this.setAsync = promisify(this.client.set).bind(this.client);
+		this.invalidateAsync = promisify(this.client.del).bind(this.client);
 	}
 
 	public async set<T>(key: string, data: T, ttl?: number) {
@@ -36,5 +38,9 @@ export class RedisCache {
 		const object: T = JSON.parse(result);
 
 		return object;
+	}
+
+	public async invalidate(key: string) {
+		await this.invalidateAsync(key);
 	}
 }

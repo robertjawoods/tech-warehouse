@@ -1,0 +1,11 @@
+.new-address-form { 
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.new-address-form > * { 
+    margin: 5px;
+}
+
+

@@ -5,11 +5,11 @@ block append head
   link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
   link(href='https://fonts.googleapis.com/css2?family=Arsenal&family=Quattrocento+Sans&display=swap' rel='stylesheet')
 block content
-  -console.log(model); const product=model.data;
+  -const product=model.data; console.log(model);
     .product-display-container
       h1.product-name=product.name 
       img.hero-image(src=`./../../../public/assets/images/${product.images[0]}`)
-      h2.product-price=formatCurrency(product.price, product.currencycode) 
+      h2.product-price #{model.helperFunctions.formatCurrency(product.price, product.currencycode)}
       button.basket-button Add to Basket
       h2.product-description=product.description 
     .related-products-container

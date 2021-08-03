@@ -1,7 +1,12 @@
 extends layouts/main 
 
+block append head
+    link(rel='stylesheet' href='/public/assets/styles/home-page.css' type='text/css')
+
 block content 
-    a(href='sale')
-        image(src='/public/assets/images/sale-image.jpg')
+    .home-page-content
+        .sale-cta
+            a(href='sale')
+                image(src='/public/assets/images/sale-image.jpg')
 
 

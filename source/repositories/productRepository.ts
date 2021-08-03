@@ -30,6 +30,13 @@ export class ProductRepository extends BaseRepository {
 		return this.queryMany(cacheKey, 'SELECT * FROM products WHERE category_id = $1', [categoryId]);
 	}
 
+	public async getProductsByCategoryIds(parentId: number, categoryIds: number[]): Promise<IProduct[]> {
+		const cacheKey = `${parentId.toString()}-products`;
+		let sql = 'SELECT * FROM products WHERE category_id in (' + categoryIds.join(',') + ')';
+
+		return this.queryMany(cacheKey, sql);
+	}
+
 	public async getProductsByCategoryName(categoryName: string): Promise<IProduct[]> {
 		const cacheKey = `${categoryName}-products`;
 		const sql = `
@@ -39,5 +46,17 @@ export class ProductRepository extends BaseRepository {
         where c.name = $1`;
 
 		return this.queryMany(cacheKey, sql, [categoryName]);
+	}
+
+	public async addProduct(product: IProduct) {
+		const sql = `insert into products values ()`;
+
+		await this.query(sql);
+	}
+
+	public async addProducts(products: IProduct[]) {
+		let sql = `insert into products values `;
+
+		await this.query(sql);
 	}
 }

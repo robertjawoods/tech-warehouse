@@ -17,7 +17,6 @@ const googleStrategy = new GoogleStrategy({
 	callbackURL: '/user/authenticated'
 }, async (accessToken, refreshToken, profile, done) => {
 	const userRepository: UserRepository = container.get(TypeSymbols.UserRepository);
-
 	const user: UserModel = await userRepository.getUser(profile.id);
 
 	if (user) {

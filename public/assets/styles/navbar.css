@@ -7,6 +7,16 @@
 	top: 0;
 
   margin: 0px;
+  padding-left: 0px;
+}
+
+.home-button {
+  height:auto;
+  width:3%;
+  margin-right:1.2%;
+
+  padding-top: 10px;
+  padding-bottom:10px;
 }
 
 /* Navigation links */
@@ -15,10 +25,56 @@
   font-size: 16px;
   color: white;
   text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
+  left: 0;
 }
 
+.category-nav a {
+  padding: .8% .5%;
+}
 .navbar a:hover {
   background-color: #6F2578;
+}
+
+.sub-nav:hover .sub-nav  {
+  display: block;
+}
+
+.float-right { 
+  float: right; 
+  display: flex;
+  flex-direction: row;
+}
+
+.float-right a {
+  padding: 15px 20px;
+}
+
+.float-right li {
+  padding: 0px 6px ;
+}
+
+.navbar input[type="text"] {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.navbar, .sub-nav {
+  list-style: none;
+}
+
+.sub-nav {
+  display: none;
+}
+
+.category-nav > .sub-nav { 
+  display: block;
+}
+
+.nav-bar .category-nav {
+  height: 100%;
+}
+
+.sub-nav>a:hover > li { 
+  display: block;
 }

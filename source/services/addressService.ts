@@ -1,4 +1,5 @@
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
+import { TypeSymbols } from '../core/IoC/types';
 import { Address } from '../models/address';
 import { AddressRepository } from '../repositories/addressRepository';
 
@@ -6,7 +7,7 @@ import { AddressRepository } from '../repositories/addressRepository';
 export class AddressService {
 	private readonly addressRepository: AddressRepository;
 
-	constructor(addressRepository?: AddressRepository) {
+	constructor(@inject(TypeSymbols.AddressRepository) addressRepository?: AddressRepository) {
 		this.addressRepository = addressRepository;
 	}
 

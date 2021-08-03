@@ -10,7 +10,9 @@ const TypeSymbols = {
 	UserRepository: Symbol.for('UserRepository'),
 	RedisCache: Symbol.for('RedisCache'),
 	AddressRepository: Symbol.for('AddressRepository'),
-	AddressService: Symbol.for('AddressService')
+	AddressService: Symbol.for('AddressService'),
+	BasketService: Symbol.for('BasketService'),
+	WishistService: Symbol.for('WishistService'),
 };
 
 export { TypeSymbols };

@@ -1,0 +1,12 @@
+.address-list { 
+    display: flex;
+    flex-flow: row wrap;
+    list-style-type: none;
+}
+
+.address { 
+    padding:20px; 
+    border-style: solid;
+    border-radius: 5px;
+    margin: 4px;
+}

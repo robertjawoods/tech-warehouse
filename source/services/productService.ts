@@ -27,7 +27,7 @@ class ProductService {
 		return product;
 	}
 
-	async getProducts(categoryName: string): Promise<IProduct[]> {
+	async getCategoryProducts(categoryName: string): Promise<IProduct[]> {
 		const products: IProduct[] = await this.productRepository.getProductsByCategoryName(categoryName);
 
 		for (const product of products) {
@@ -39,6 +39,29 @@ class ProductService {
 		}
 
 		return products;
+	}
+
+	async getProducts(parentId: number, categoryIds: number[]): Promise<IProduct[]> {
+		const products: IProduct[] = await this.productRepository.getProductsByCategoryIds(parentId, categoryIds);
+
+		for (const product of products) {
+			product.images = [await this.productImageService.getProductImage({
+				id: product.id,
+				imageType: ProductImageType.Hero,
+				perspective: Perspective.Front
+			})];
+		}
+
+
+		return products;
+	}
+
+	async addProduct(product: IProduct) {
+
+	}
+
+	async addProducts(products: IProduct[]) {
+
 	}
 }
 

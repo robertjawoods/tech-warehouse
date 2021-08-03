@@ -1,6 +1,25 @@
-div.navbar
-    a(href='/') Home
-    a(href='/user/login') Login
-    a(href='/user/register') Register
+- const categoryHierarchy = model.categoryHierarchy;
 
-    input(type='text', placeholder='Search')
+include ../mixins/navbar
+
+block append head
+    link(rel="stylesheet" href="/public/assets/styles/navbar.css" type="text/css")
+
+ul.navbar
+    li
+        a.home-button(href="/")
+            img(src="/public/assets/images/tw-logo.png")
+    .category-nav
+        each category in categoryHierarchy
+            +getNav(category)
+    .float-right
+        li 
+            a(href='/user/login') Login
+        li
+            a(href='/user/register') Register     
+        li
+            a(href='/user/wishlist') Wishlist
+        li    
+            a(href='/user/basket') Basket
+        li
+            input(type='text', placeholder='Search')

@@ -1,1 +1,10 @@
 .address-display
+    ul.address-list 
+        each address in model.data.addresses 
+            li.address 
+                p.line-1 #{address.line_1}
+                p.line-2 #{address.line_2}
+                p.city #{address.city}
+                p.postcode #{address.postcode}
+                p.country #{address.country}
+            

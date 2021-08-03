@@ -39,4 +39,10 @@ export class CategoryRepository extends BaseRepository {
 				return tree;
 			});
 	}
+
+	public async getCategoryByName(categoryName: string): Promise<CategoryNode> {
+		let category = await this.querySingle<CategoryNode>(`${categoryName}-overview`, `select * from categories where name = $1`, [categoryName]);
+
+		return category;
+	}
 }

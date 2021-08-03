@@ -1,9 +1,12 @@
 extends ../layouts/main
 
 block content 
-    h1 User Page
-    h2 Name: =model.data.first_name
-    h2 Surname: =model.data.last_name
-    h2 Email: =model.data.email
-
-    a(href='/user/addressbook') Address Book
+    .user-details
+        h1 User Page
+        h2 Name: #{model.data.first_name}
+        h2 Surname: #{model.data.last_name}
+        h2 Email: #{model.data.email}
+    .links
+        a(href='/user/addressbook') Address Book
+        a(href='#orders') Orders
+        a(href='#payments') Payment Methods

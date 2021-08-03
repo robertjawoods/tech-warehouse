@@ -6,7 +6,6 @@ import { Server } from '@overnightjs/core';
 import * as passport from 'passport';
 import * as cookieSession from 'cookie-session';
 import { ControllerLoader } from './core/controllerLoader';
-import * as viewHelpers from './views/viewHelpers';
 import { TypeSymbols } from './core/IoC/types';
 import { lazyInject } from './core/IoC/inversify.config';
 import { googleStrategy } from './core/authentication/googleStrategyConfig';
@@ -27,8 +26,6 @@ class App extends Server {
 		this.initialiseMiddleware();
 
 		this.initialiseControllers();
-
-		this.registerViewHelpers();
 	}
 
 	private initialiseMiddleware() {
@@ -71,14 +68,9 @@ class App extends Server {
 		});
 	}
 
-	private registerViewHelpers() {
-		this.app.locals.formatCurrency = viewHelpers.formatCurrency;
-		this.app.locals.getMenuSection = viewHelpers.getMenuSection;
-	}
-
 	public listen() {
 		this.app.listen(this.port, () => {
-			console.log(`Listening on http://localhost:${this.port}`);
+			console.log(`Listening on http://techwarehouse.com:${this.port}`);
 		});
 	}
 }

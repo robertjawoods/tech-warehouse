@@ -16,11 +16,18 @@ import { RedisCache } from '../cache';
 import { AddressRepository } from '../../repositories/addressRepository';
 import { AddressService } from '../../services/addressService';
 import { TypeSymbols } from './types';
+import { WishistService } from '../../services/wishlistService';
+import { BasketService } from '../../services/basketService';
 
 const container = new Container();
 const { lazyInject } = getDecorators(container, false);
 
 export const registerDependencies = () => {
+	container.bind<ProductRepository>(TypeSymbols.ProductRepository).to(ProductRepository);
+	container.bind<CategoryRepository>(TypeSymbols.CategoryRepository).to(CategoryRepository);
+	container.bind<UserRepository>(TypeSymbols.UserRepository).to(UserRepository);
+	container.bind<AddressRepository>(TypeSymbols.AddressRepository).to(AddressRepository);
+
 	container.bind<LogService>(TypeSymbols.LogService).to(LogService).inSingletonScope();
 	container.bind<ControllerLoader>(TypeSymbols.ControllerLoader).to(ControllerLoader);
 	container.bind<typeof Pool>(TypeSymbols.Pool).toConstantValue(Pool);
@@ -28,11 +35,8 @@ export const registerDependencies = () => {
 	container.bind<IProductImageService>(TypeSymbols.IProductImageService).toFactory(context => _ => ProductImageServiceFactory.getImageService());
 	container.bind<CategoryService>(TypeSymbols.CategoryService).to(CategoryService);
 	container.bind<AddressService>(TypeSymbols.AddressService).to(AddressService);
-
-	container.bind<ProductRepository>(TypeSymbols.ProductRepository).to(ProductRepository);
-	container.bind<CategoryRepository>(TypeSymbols.CategoryRepository).to(CategoryRepository);
-	container.bind<UserRepository>(TypeSymbols.UserRepository).to(UserRepository);
-	container.bind<AddressRepository>(TypeSymbols.AddressRepository).to(AddressRepository);
+	container.bind<WishistService>(TypeSymbols.WishistService).to(WishistService);
+	container.bind<BasketService>(TypeSymbols.BasketService).to(BasketService);
 
 	container.bind<RedisCache>(TypeSymbols.RedisCache).to(RedisCache).inSingletonScope();
 };

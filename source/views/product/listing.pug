@@ -7,15 +7,14 @@ block append head
     link(href='https://fonts.googleapis.com/css2?family=Arsenal&family=Quattrocento+Sans&display=swap' rel='stylesheet')
 
 block content   
-    - console.log(model); const [divisionName, products]=model.data; const hierarchy=model.categoryHierarchy;
-        h1.division-heading=divisionName
-            .product-container
-                each product in products
-                    .product-card
-                        .product-info
-                        a(href=`/product/${product.id}`)
-                            h2.product-name=product.name 
-                                img.product-image(src=`./../../../public/assets/images/${product.images[0]}`)
-                                p.product-price
-                                - formatCurrency(product.price, product.currencycode) 
-                                    button.basket-button Add to Basket
+    - const divisionName= model.data.divisionName; const products =model.data.products; const hierarchy=model.categoryHierarchy;
+    h1.division-heading=divisionName
+    .product-container
+        each product in products
+            .product-card
+                .product-info
+                a(href=`/product/${product.id}`)
+                    h2.product-name=product.name 
+                        img.product-image(src=`./../../../public/assets/images/${product.images[0]}`)
+                        p.product-price #{model.helperFunctions.formatCurrency(product.price, product.currencycode)} 
+                        button.basket-button Add to Basket

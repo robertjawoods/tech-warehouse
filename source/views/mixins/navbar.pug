@@ -1,0 +1,6 @@
+mixin getNav(category) 
+    ul.sub-nav
+        li
+            a(href=`/products/d=${category.name}`) #{category.web_name}
+            each child in category.children 
+                +getNav(child)

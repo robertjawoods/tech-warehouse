@@ -32,7 +32,9 @@ export class BaseRepository {
 				return item;
 			})
 			.then(async (item: T) => {
-				await this.cache.set(cacheKey, item);
+				if (item) {
+					await this.cache.set(cacheKey, item);
+				}
 
 				return item;
 			});
@@ -63,7 +65,17 @@ export class BaseRepository {
 			});
 	}
 
-	protected async query(query: string, parameters: any) {
+	protected async query(query: string, parameters?: any) {
+		return this.pool.connect()
+			.then(client => {
+				// Get the data from the database
+				client.query(query, parameters);
+			});
+	}
+
+	protected async queryAndInvalidate(cacheKey: string, query: string, parameters: any) {
+		await this.cache.invalidate(cacheKey);
+
 		return this.pool.connect()
 			.then(client => {
 				// Get the data from the database
